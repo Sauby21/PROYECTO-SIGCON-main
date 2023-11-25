@@ -1,0 +1,320 @@
+<script>
+  // Función para actualizar el campo id_predio en cada formulario
+  function actualizarIdPredio() {
+    var idPredioSelect = document.getElementById('idPredioSelect');
+    var idPredio = idPredioSelect.value;
+
+    // Verificar si se seleccionó un predio válido
+    if (idPredio) {
+      // Guardar el valor seleccionado en el almacenamiento local del navegador
+      localStorage.setItem('idPredio', idPredio);
+
+      // Actualizar el valor del campo en cada formulario
+      var idPredioInputs = document.getElementsByName('id_predio');
+      for (var i = 0; i < idPredioInputs.length; i++) {
+        idPredioInputs[i].value = idPredio;
+      }
+    }
+  }
+
+  // Obtener el valor del predio seleccionado del almacenamiento local y establecerlo como la opción seleccionada
+  var storedIdPredio = localStorage.getItem('idPredio');
+  if (storedIdPredio) {
+    document.getElementById('idPredioSelect').value = storedIdPredio;
+  }
+
+  // Actualizar constantemente el campo oculto y la selección en el combo box al cargar la página
+  window.onload = function() {
+    var idPredio = document.getElementById('idPredioSelect').value;
+    var idPredioInputs = document.getElementsByName('id_predio');
+    for (var i = 0; i < idPredioInputs.length; i++) {
+      idPredioInputs[i].value = idPredio;
+    }
+
+    document.getElementById('idPredioSelect').value = idPredio;
+  };
+</script>
+
+
+<!-- Agrega el campo de selección de predio fuera de los formularios -->
+<form class="card mb-3 my-3 ms-3 me-3 text-light row justify-content-end" style="background-color: #1c4d9663;">
+  <h3 class="h2 mb-3 col-md-6">Selección del Predio</h3>
+  <div class="w-100"></div>
+  <select id="idPredioSelect" class="form-select" aria-label="Default select example" required onchange="actualizarIdPredio()">
+    <option value="">Seleccione un predio</option>
+    {% for item in id_predios %}
+    <option value="{{ item.id_predio }}" {% if item.id_predio == selected_id_predio %}selected{% endif %}>{{ item.id_predio }} - {{ item.descripcion }}</option>
+    {% endfor %}
+  </select>
+</form>
+
+
+<form action="/new/predio_mdu" method="POST" class="card mb-3 my-3 ms-3 me-3 text-light row justify-content-end" style="background-color: #1c4d9663;">
+
+  <div class="row justify-content-start container px-5 py-5">
+
+    <h3 class="h2 mb-3 col-md-6">Unidad de Viviendas Multiples</h3>
+
+    <div class="w-100"></div>
+
+    <input type="hidden" name="id_predio" value="{{ selected_id_predio }}">
+
+    <div class="row col-md-5">
+      <img src="https://arqa.com/wp-content/uploads/2018/10/ricolleau-2052-530x369.jpg" class="rounded float-left " style="width: 530; height: 300px; ">
+    </div>
+
+    <div class="row col-7 mb-3 py-7 justify-content-start" style="height: 10px;">
+
+      <div class="row col-6 mb-3 my-3 container py-7 justify-content-start">
+        <label for="id_mdu"><h6>Tipo de Unidad de Viviendas Multiples:</h6></label>
+        <select class="form-select" aria-label="Default select example" required id="tipoMDUSelect" name="id_mdu">
+          <option value="">Seleccione un tipo de Unidad de Viviendas Multiples</option>
+          <option value="1" {% if id_mdu == '1' %}selected{% endif %}>Edificio</option>
+          <option value="2" {% if id_mdu == '2' %}selected{% endif %}>Torre</option>
+          <option value="3" {% if id_mdu == '3' %}selected{% endif %}>Bloque</option>
+        </select>
+      </div>
+
+      <div class="row col-6 mb-3 ms-3 my-3 container py-7">
+        <label for="descripcion"><h6>Descripción:</h6></label>
+        <input
+          type="text"
+          name="descripcion"
+          class="form-control rounded-0 bg-white border-0 text-black"
+          required
+        />
+      </div>
+
+      <div class="row col-6 mb-3 my-3 container py-7">
+        <label for="direccion"><h6>Dirección:</h6></label>
+        <input
+          type="text"
+          name="direccion"
+          class="form-control rounded-0 bg-white border-0 text-black"
+          required
+        />
+      </div>
+
+      <div class="row col-6 mb-3 ms-3 my-3 container py-7">
+        <label for="numero"><h6>Número:</h6></label>
+        <input
+          type="text"
+          name="numero"
+          class="form-control rounded-0 bg-white border-0 text-black"
+          required
+        />
+      </div>
+
+      <div class="row col-12 mb-3 my-3 container py-7">
+        <button class="btn btn-primary bg-primary"><h5>Registrar</h5></button>
+      </div>
+    </div>
+
+
+    <div class="row col-12 mb-3 my-3 container py-7">
+      <div class="row ">
+        <div class="col">
+          <div class="card text-black"  style="box-sizing: border-box; margin-bottom: 20px;">
+            <table>
+              <tr>
+                <th>ID Predio</th>
+                <th>ID MDU</th>
+                <th>Descripción</th>
+                <th>Dirección</th>
+                <th>Número</th>
+              </tr>
+              {% for row in data_Mdu %}
+                <tr>
+                  {% for cell in row %}
+                    <td>{{ cell }}</td>
+                  {% endfor %}
+                </tr>
+              {% endfor %}
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</form>
+
+<form action="/new/predio_area_comun" method="POST" class="card mb-3 my-3 ms-3 me-3  text-light row justify-content-end" style="background-color: #1c4d9663;">
+  <div class="row justify-content-start container px-5 py-5">
+
+    <h3 class="h2 mb-3 col-md-12">Área común del Predio</h3>
+
+    <div class="w-100"></div>
+
+    <input type="hidden" name="id_predio" value="{{ selected_id_predio }}">
+
+    <div class="row col-md-5">
+      <img src="https://www.hogares.cl/wp-content/uploads/2019/09/FV_PATIO-EJERCICIOS.jpg" class="rounded float-left " style="width: 530; height: 300px; ">
+    </div>
+
+    <div class="row col-7 mb-3 py-7 justify-content-start" style="height: 10px;">
+
+      <div class="row col-6 mb-3 my-3 container py-7 justify-content-start">
+        <label for="id_area_comun"><h6>Tipo de área común:</h6></label>
+        <select class="form-select" aria-label="Default select example" required id="tipoAreaComunSelect" name="id_area_comun">
+          <option value="">Seleccione un tipo de área común </option>
+          <option value="10001" {% if id_area_comun == '10001' %}selected{% endif %}>parque interno</option>
+          <option value="10002" {% if id_area_comun == '10002' %}selected{% endif %}>juegueteria</option>
+          <option value="10003" {% if id_area_comun == '10003' %}selected{% endif %}>loza de voley</option>
+          <option value="10004" {% if id_area_comun == '10004' %}selected{% endif %}>parque</option>
+        </select>
+      </div>
+
+      <div class="row col-6 mb-3 ms-3 my-3 container py-7">
+        <label for="codigo"><h6>Código del área común:</h6></label>
+        <input
+          type="text"
+          name="codigo"
+          class="form-control rounded-0 bg-white border-0 text-black"
+          required
+        />
+      </div>
+
+      <div class="row col-6 mb-3 my-3 container py-7">
+        <label for="area"><h6>Dimensión del área común:</h6></label>
+        <input
+          type="text"
+          name="area"
+          class="form-control rounded-0 bg-white border-0 text-black"
+          required
+        />
+      </div>
+
+      <div class="row col-12 mb-3 my-3 container py-3">
+        <button class="btn btn-primary bg-primary"><h5>Registrar</h5></button>
+      </div>
+      <input type="hidden" name="id_predio" id="id_predio_hidden">
+    </div>
+
+    <div class="row col-12 mb-3 my-3 container py-7">
+      <div class="row">
+        <div class="col">
+          <div class="card text-black"  style="box-sizing: border-box; margin-bottom: 20px;">
+            <table>
+              <tr>
+                <th>ID Predio</th>
+                <th>ID Área Común</th>
+                <th>Código</th>
+                <th>Área</th>
+              </tr>
+              {% for row in data_ArCm %}
+                <tr>
+                  {% for cell in row %}
+                    <td>{{ cell }}</td>
+                  {% endfor %}
+                </tr>
+              {% endfor %}
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+
+<form action="/new/casa" method="POST" class="card mb-3 my-3 ms-3 me-3 text-light row justify-content-end" style="background-color: #1c4d9663;">
+  <div class="row justify-content-start container px-5 py-5">
+
+    <h3 class="h2 mb-3 col-md-6">Departamento/Casa</h3>
+
+    <div class="w-100"></div>
+
+    <input type="hidden" name="id_predio" value="{{ selected_id_predio }}">
+
+    <div class="row col-md-5">
+      <img src="https://img.properati.com/eyJidWNrZXQiOiJwcmQtbGlmdWxsY29ubmVjdC1wcm9qZWN0cy1hZG1pbi1pbWFnZXMiLCJrZXkiOiIxMTc3YTFkNi1iY2Q1LTRkOGUtYTMxMi01YTE3OWM5ZmU5ZWMvMTE3N2ExZDYtYmNkNS00ZDhlLWEzMTItNWExNzljOWZlOWVjX2M0MjZmNWRiLTBjNTYtNDY5OC05YzM2LWM5MmVlOGFhMmZkMi5qcGciLCJicmFuZCI6IlBST1BFUkFUSSIsImVkaXRzIjp7InJlc2l6ZSI6eyJ3aWR0aCI6NjQwLCJoZWlnaHQiOjQ4MCwiZml0IjoiY292ZXIifX19" class="rounded float-left " style="height: 380px; ">
+    </div>
+
+    <div class="row col-7 mb-3 py-7 justify-content-start" style="height: 10px;">
+
+      <div class="row col-6 mb-3 my-3 container py-7 justify-content-start">
+        <label for="id_estado"><h6>Estado de Casa:</h6></label>
+        <select class="form-select" aria-label="Default select example" required id="idEstadoSelect" name="id_estado">
+          <option value="">Seleccione el estado de la casa</option>
+          <option value="1" {% if id_estado == '1' %}selected{% endif %}>Habitada</option>
+          <option value="2" {% if id_estado == '2' %}selected{% endif %}>No Habitada</option>
+          <option value="3" {% if id_estado == '3' %}selected{% endif %}>Alquilada</option>
+          <option value="4" {% if id_estado == '4' %}selected{% endif %}>Abandonada</option>
+        </select>
+      </div>
+
+      <div class="row col-6 mb-3 ms-3 my-3 container py-7">
+        <label for="numero"><h6>Número de la casa:</h6></label>
+        <input
+          type="text"
+          name="numero"
+          class="form-control rounded-0 bg-white border-0 text-black"
+          required
+        />
+      </div>
+
+      <div class="row col-6 mb-3 my-3 container py-7">
+        <label for="piso"><h6>Piso de la casa:</h6></label>
+        <input
+          type="text"
+          name="piso"
+          class="form-control rounded-0 bg-white border-0 text-black"
+          required
+        />
+      </div>
+
+      <div class="row col-6 mb-3 ms-3 my-3 container py-7">
+        <label for="area"><h6>Área de la casa:</h6></label>
+        <input
+          type="text"
+          name="area"
+          class="form-control rounded-0 bg-white border-0 text-black"
+          required
+        />
+      </div>
+
+      <div class="row col-6 mb-3 my-3 container py-7">
+        <label for="participacion"><h6>Participación:</h6></label>
+        <input
+          type="text"
+          name="participacion"
+          class="form-control rounded-0 bg-white border-0 text-black"
+          required
+        />
+      </div>
+
+      <div class="row col-12 mb-3 my-3 container py-7">
+        <button class="btn btn-primary bg-primary"><h5>Registrar</h5></button>
+      </div>
+    </div>
+
+    <div class="row col-12 mb-3 my-3 container py-7">
+      <div class="row">
+        <div class="col">
+          <div class="card text-black"  style="box-sizing: border-box; margin-bottom: 20px;">
+            <table>
+              <tr>
+                <th>ID Predio</th>
+                <th>Estado</th>
+                <th>ID MDU</th>
+                <th>Número</th>
+                <th>Piso</th>
+                <th>Área</th>
+                <th>Participación</th>
+              </tr>
+              {% for row in data_Casa %}
+                <tr>
+                  {% for cell in row %}
+                    <td>{{ cell }}</td>
+                  {% endfor %}
+                </tr>
+              {% endfor %}
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</form>

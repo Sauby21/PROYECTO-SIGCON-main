@@ -1,0 +1,453 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;800&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    font-family: 'Open Sans', sans-serif;
+}
+
+
+/*Buscador */
+.buscador-cerrar {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 1px;
+    cursor: pointer;
+}
+
+
+.envoltura {
+    width: 260px;
+    margin: 10px;
+}
+
+.select-btn,
+.opciones li {
+    display: flex;
+    cursor: pointer;
+    align-items: center;
+}
+
+.select-btn {
+    height: 40px;
+    width: 350px;
+    padding: 0 20px;
+    border-radius: 7px;
+    background: #fff;
+    justify-content: space-between;
+}
+
+.select-btn i {
+    transition: transform 0.1s linear;
+}
+
+.envoltura.active .select-btn i {
+    transform: rotate(-180deg);
+}
+
+.envoltura.disabled {
+    pointer-events: none;
+    opacity: 0.5;
+}
+
+.combobox-recuadro {
+    position: absolute;
+    display: none;
+    width: 350px;
+    margin-top: 10px;
+    padding: 10px;
+    border-radius: 7px;
+    background: #fff;
+}
+
+.envoltura.active .combobox-recuadro {
+    display: block;
+}
+
+.combobox-recuadro .buscar {
+    position: relative;
+}
+
+.buscar i {
+    left: 12px;
+    line-height: 38px;
+    pointer-events: none;
+    position: absolute;
+}
+
+.buscar input {
+    height: 40px;
+    width: 94%;
+    outline: none;
+    border-radius: 5px;
+    padding: 0 15px 0 40px;
+    border: 1px solid #b3b3b3;
+}
+
+.combobox-recuadro .opciones {
+    padding: 0;
+    margin: 0;
+    margin-top: 10px;
+    max-height: 250px;
+    width: 100%;
+    overflow-y: auto;
+}
+
+.opciones::-webkit-scrollbar {
+    width: 7px;
+}
+
+.opciones::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 25px;
+}
+
+.opciones::-webkit-scrollbar-thumb {
+    background: #8f8f8f;
+    border-radius: 25px;
+}
+
+.opciones li {
+    height: 40px;
+    width: 97%;
+    padding: 0px 10px;
+    border-radius: 5px;
+}
+
+.opciones li:hover,
+li.selected {
+    background: #f2f2f2;
+}
+
+
+.envoltura1 {
+    width: 260px;
+    margin: 10px;
+}
+
+.combobox-cuerpo1,
+.opciones1 li {
+    display: flex;
+    cursor: pointer;
+    align-items: center;
+}
+
+.combobox-cuerpo1 {
+    height: 40px;
+    width: 350px;
+    padding: 0 20px;
+    border-radius: 7px;
+    background: #fff;
+    justify-content: space-between;
+}
+
+.combobox-cuerpo1 i {
+    transition: transform 0.1s linear;
+}
+
+.envoltura1.active .combobox-cuerpo1 i {
+    transform: rotate(-180deg);
+}
+.envoltura1.disabled {
+    pointer-events: none;
+    opacity: 0.5;
+    /* Otros estilos de deshabilitado */
+}
+.combobox-recuadro1 {
+    position: absolute;
+    display: none;
+    width: 350px;
+    margin-top: 10px;
+    padding: 10px;
+    border-radius: 7px;
+    background: #fff;
+}
+
+.envoltura1.active .combobox-recuadro1 {
+    display: block;
+}
+
+.combobox-recuadro1 .buscar {
+    position: relative;
+}
+
+.combobox-recuadro1 .opciones1 {
+    padding: 0;
+    margin: 0;
+    margin-top: 10px;
+    max-height: 250px;
+    width: 100%;
+    overflow-y: auto;
+}
+
+.opciones1::-webkit-scrollbar {
+    width: 7px;
+}
+
+.opciones1::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 25px;
+}
+
+.opciones1::-webkit-scrollbar-thumb {
+    background: #8f8f8f;
+    border-radius: 25px;
+}
+
+.opciones1 li {
+    height: 40px;
+    width: 97%;
+    padding: 0px 10px;
+    border-radius: 5px;
+}
+
+.opciones1 li:hover,
+li.selected {
+    background: #f2f2f2;
+}
+
+
+/*TEXTO*/
+
+.texto-contenedor-principal {
+    display: flex;
+    height: 60px;
+    width: 250px;
+    /*250*/
+    align-items: center;
+
+
+}
+
+.tabulador-izq {
+    margin-left: 1rem;
+}
+
+/*AVISO*/
+.aviso-predio {
+    font-size: 1.25rem;
+    margin: 0.2rem;
+}
+
+
+/*SECCION SUPERIOR*/
+.seccion-superior-borde {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    min-height: 25vh;
+    /*ALTURA*/
+    background-color: var(--color-fondo);
+    border: 1px solid var(--blue-navy-clrclr);
+    border-radius: 5px;
+    width: 95%;
+}
+
+/*SECCIÓN DE LA TABLA Y TABLA*/
+
+/*INCLUYE TODA LA SECCIÓN Y LA TABLA INTERNA*/
+.seccion-tabla-borde {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    min-height: 50vh;
+    /*TAMAÑO MIN DE LA SECCION*/
+    background-color: rgb(244, 244, 244);
+    border: 1px solid var(--blue-navy-clrclr);
+    border-radius: 5px;
+    width: 95%;
+    /*% DEL ANCHO*/
+
+    display: flex;
+    flex-direction: column;
+    /*Establece la dirección principal del contenedor a vertical, para que los elementos se apilen uno encima del otro.*/
+    justify-content: flex-start;
+    /*VERTICAL Alinea los elementos, de este contenedor,
+     en el eje principal (vertical) hacia la parte superior del contenedor.*/
+    align-items: center;
+    /*HORIZONTAL Centra los elementos, de este contenedor, 
+    en el eje transversal (horizontal) dentro del contenedor.*/
+
+}
+
+/* TABLA */
+
+.contenedor-tabla {
+    display: flex;
+    justify-content: center;
+    min-height: 100px;
+    max-height: 300px;
+    /* Altura fija del contenedor */
+    overflow-y: auto;
+    /* Barra de desplazamiento vertical */
+}
+
+.tabla-principal {
+    /*
+    border: 1px solid #ccc;
+    border-radius: 4px;*/
+    padding: 10px;
+    margin-top: 20px;
+}
+
+.tabla-principal table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.tabla-principal th {
+    padding: 8px;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+    border-right: 1px solid #ddd;
+    /* Agregar línea vertical */
+}
+
+.tabla-principal td {
+    padding: 8px;
+    text-align: center;
+    background: #ffffff2e;
+    border-bottom: 1px solid #ddd;
+    border-right: 1px solid #ddd;
+    /* Agregar línea vertical */
+}
+
+.tabla-principal th:last-child,
+.tabla-principal td:last-child {
+    border-right: none;
+    /* Eliminar línea vertical en la última columna */
+}
+
+.tabla-principal th {
+    background-color: #ffffffac;
+    font-weight: bold;
+}
+
+.tabla-principal tbody tr:last-child td {
+    border-bottom: none;
+}
+
+/**/
+
+.circulo-registro-casa {
+    width: 20px;
+    height: 20px;
+    background-color: #717171;
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 5px;
+    border-radius: 50%;
+    /* Hace que el elemento sea un círculo */
+}
+
+.circulo-registro-predio {
+    width: 30px;
+    height: 30px;
+    background-color: #717171;
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 5px;
+    border-radius: 50%;
+    /* Hace que el elemento sea un círculo */
+    margin-left: 10px;
+    /* Añade un margen a la izquierda para crear un tabulador */
+}
+
+/**/
+
+
+
+.subsection-0 {
+    align-items: start;
+    margin-top: 1rem;
+    padding: 0.5rem 1rem 0.5rem 1rem;
+    background: rgba(109, 109, 109, 0.638);
+    border-radius: 10px 10px 0px 0px;
+    width: 100%;
+}
+
+.mp-0 {
+    margin: 0;
+    padding: 0;
+}
+
+.text-0 {
+    font-size: 1rem;
+}
+
+.text-1 {
+    font-size: 1.15rem;
+}
+
+.text-2 {
+    font-size: 1.30rem;
+}
+
+.text-3 {
+    font-size: 1.45rem;
+}
+
+.text-4 {
+    font-size: 1.6rem;
+}
+
+.tab-0 {
+    margin-left: 0.5rem;
+}
+
+.tab-1 {
+    margin-left: 1rem;
+}
+
+.tab-2 {
+    margin-left: 1.5rem;
+}
+
+.tab-3 {
+    margin-left: 2rem;
+}
+
+.tab-4 {
+    margin-left: 2.5rem;
+}
+
+.color-b {
+    color: #fff;
+}
+
+.color-n {
+    color: #000;
+}
+
+.flexy {
+    display: flex;
+}
+
+.columna-2 {
+    justify-content: start;
+    align-items: start;
+    display: flex;
+    padding: 0;
+    margin: 0;
+}
+
+.cont-2 {
+    width: 50%;
+}
+
+.subsection-1 {
+    align-items: start;
+    margin: 0.5rem 0rem 2rem 0rem;
+    background: rgba(255, 255, 255, 0.616);
+    border: 1px solid rgba(255, 255, 255, 0.504);
+    border-radius: 0px 0px 10px 10px;
+    width: 100%;
+    min-height: 10px;
+
+}
+
+.text-center-v {
+    display: flex;
+    height: 60px;
+    width: 35%;
+    align-items: center;
+}

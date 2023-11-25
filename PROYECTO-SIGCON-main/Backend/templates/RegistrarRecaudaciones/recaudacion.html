@@ -1,0 +1,309 @@
+{% extends 'RegistrarRecaudaciones/base-user.html' %}
+{% block title %}RECAUDACIONES{% endblock %}
+{% block header %}
+
+{% endblock %}
+{% block content %}
+<link rel="stylesheet" href="{{ url_for('static', filename='RegistrarRecaudaciones/css/recaudacion.css') }}">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<link href="https://cdn.datatables.net/1.10.25/css/dataTables.bootstrap4.min.css" rel="stylesheet">
+
+<!-- Formulario -->
+<form class="container-form">
+     
+    <!-- RECIBO -->
+    <div class="form-apartado" id="info_recibo">
+        <div class="apartado-titulo">
+            <span class="material-icons">receipt</span>
+            INFORMACIÓN DEL RECIBO</div>
+
+        <div class="textInput">
+            <label class="input__lbl">
+                <span class="txt-lbl">N° recibo: </span>
+            </label>
+            <input 
+            id="n_recibo-input"
+            name="n_recibo-input"
+            type="text"
+            class="form-control"
+             >
+        </div>
+
+        <!-- BOTON BUSCAR NRO RECIBO -->
+        <div class="buttons button-container">
+            <button id="buscar_recibo" class="btn btn-primary" type="button">
+                <span class="material-icons">search</span>
+                Buscar
+            </button>
+        </div>
+
+        <div class="textInput">
+            <label class="input__lbl">
+                <span class="txt-lbl">Estado de recibo:</span>
+            </label>
+            <input id="estado_recibo" type="text" name="estado_recibo" required readonly>
+        </div>
+
+        <div class="textInput">
+            <label class="input__lbl">
+                <span class="txt-lbl">Importe:</span>
+            </label>
+            <input id="importe_recibo" type="text" name="importe_recibo" required readonly>
+        </div>
+    </div>
+
+    <!-- RECAUDACION -->
+    <div class="form-apartado" id="info_recaudacion">
+        <div class="apartado-titulo">
+            <span class="material-icons">attach_money</span>
+            INFORMACIÓN DE RECAUDACION</div>
+        <div class="textInput">
+            <label class="input__lbl">
+                <span class="txt-lbl">Nro Operacion: </span>
+            </label>
+            <input id="n_operacion" 
+            name="n_operacion"
+            type="text"
+            class="form-control"
+            >
+        </div>           
+        <div class="textInput">
+            <label class="input__lbl">
+                <span class="txt-lbl">Fecha:</span>
+            </label>
+            <input id="fecha-operacion-input" name="fecha-operacion-input" type="text" class="form-control">
+        </div>
+
+        <div class="textInput">
+            <label class="input__lbl">
+                <span class="txt-lbl">Tipo de Moneda:</span>
+            </label>
+
+            <input type="text" name=" " required readonly id="moneda_recaudacion">
+        </div>
+
+        <div class="textInput">
+            <label class="input__lbl">
+                <span class="txt-lbl">Importe:</span>
+            </label>
+            <input 
+            id = "importe_recibo_recaudacion"
+            type="text" name="importe_recibo_recaudacion" required>
+        </div>
+
+        <div class="textInput">
+            <label for="EstadoR-input">Estado:</label>
+            <select class="form-control" id="EstadoR-input" name="EstadoR-input" >
+                <option value=1>Validado</option>
+                <option value=2>Rechazado</option>
+                <option value=3>Anulado</option>
+                <option value=4>Registrado</option>
+            </select>
+        </div>
+
+        <div class="textInput">
+            <label class="input__lbl">
+                <span class="txt-lbl">Observacion:</span>
+            </label>
+            <input id="observacion-input" name="observacion-input" type="text" class="form-control">
+        </div>
+        <div class="buttons button-container">
+            <button id="agregar-btn" class="btn btn-primary">           
+                    <span class="material-icons">
+                     add     
+                </span>
+                Recaudacion
+            </button>            
+        </div>
+    </div>
+</form>
+
+<!-- Tabla de recaudaciones Pendientes -->
+<!-- Tabla de recaudaciones Pendientes -->
+<div class="table-container">
+    <table id="tabla-recaudaciones" class="custom-table">
+      <thead>
+        <tr>
+          <th>N°</th>
+          <th>Nro recaudación</th>
+          <th>Fecha</th>
+          <th>Nombre</th>
+          <th>Predio</th>
+          <th>Importe</th>
+          <th>Estado</th>
+          <th>Observación</th>
+          <th>Opciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for dato in recaudaciones %}
+        <tr>
+          <td>{{ loop.index }}</td>
+          <td>{{ dato.id_recaudacion }}</td>
+          <td>{{ dato.fecha_operacion }}</td>
+          <td>{{ dato.cuenta.persona.nombre_completo }}</td>
+          <td>{{ dato.cuenta_predio.predio.descripcion }}</td>
+          <td>{{ dato.tipo_moneda.etiqueta ~ ' ' ~ dato.importe }}</td>
+          <td>
+            {% if dato.id_recaudacion_estado == 1 %}
+              Validado
+            {% elif dato.id_recaudacion_estado == 2 %}
+              Rechazado
+            {% elif dato.id_recaudacion_estado == 3 %}
+              Anulado
+	        {% else %}
+              Registrado
+            {% endif %}
+          </td>
+          <td>{{ dato.observacion }}</td>
+          <td>
+            <a href="/editar/{{ dato.id_recaudacion }}" class="btn btn-primary">Editar</a>
+            <a href="/eliminar/{{ dato.id_recaudacion }}" class="btn btn-danger">Eliminar</a>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.25/js/dataTables.bootstrap4.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#tabla-recaudaciones').DataTable();
+    });
+</script>
+
+<script>
+    $(document).ready(function () {
+        // Manejar el clic del botón de búsqueda
+        $('#buscar-btn').click(function () {
+            event.preventDefault();
+            // Obtener el número de documento ingresado por el usuario
+            var numDocumento = $('#ndocumento-input').val();
+
+            // Realizar la solicitud al servidor para buscar el número de documento
+            $.post('/buscar/<string:num_documento>', { num_documento: numDocumento }, function (data) {
+                // Manejar la respuesta del servidor
+                if (data.success) {
+                    // Si se encuentra el número de documento, rellenar los campos de INFO PERSONAL
+                    var nombres = data.data.nombres;
+                    $('#nombre-input').val(nombres);
+                    var banco = data.data.banco;
+                    $('#banco-input').val(banco);
+                    var moneda = data.data.moneda;
+                    $('#moneda-input').val(moneda);
+                    var ncuenta = data.data.ncuenta;
+                    $('#ncuenta-input').val(ncuenta);
+                    var moneda = data.data.moneda;
+                    $('#moneda_recaudacion').val(moneda);
+                } else {
+                    // Si no se encuentra el número de documento, mostrar un mensaje de error
+                    alert('Número de documento no encontrado');
+                }
+            });
+        });
+    return false;
+        
+    });
+
+    $(document).ready(function () {
+        // Manejar el clic del botón de búsqueda
+        $('#buscarpredio-btn').click(function () {
+            event.preventDefault();
+            // Obtener el número de documento ingresado por el usuario
+            var rucpredio = $('#rpredio-input').val();
+
+            // Realizar la solicitud al servidor para buscar el número de documento
+            $.post('/buscarpredio', { num_ruc: rucpredio  }, function (data) {
+                // Manejar la respuesta del servidor
+                if (data.success) {
+                    // Si se encuentra el número de documento, rellenar los campos de INFO PREDIO
+                    var descripcion = data.data.descripcion;
+                    $('#nompredio-input').val(descripcion);   
+                    var direccion= data.data.direccion;
+                    $('#direccion-input').val(direccion);
+                    var tipo_predio = data.data.tipo_predio;
+                    $('#tpredio-input').val(tipo_predio);
+                    var ncuenta = data.data.ncuenta;
+                    $('#ncuentapredio-input').val(ncuenta);
+                    var tipo_autorizacion = data.data.tipo_autorizacion;
+                    $('#tautorizacion-input').val(tipo_autorizacion);
+                    var estado = data.data.estado;
+                    $('#estadopredio-input').val(estado);      
+                } else {
+                    // Si no se encuentra el número de documento, mostrar un mensaje de error
+                    alert('Número de ruc no encontrado');
+                }
+            });
+        });
+    });
+    
+    $(document).ready(function () {
+        // Manejar el clic del botón de búsqueda
+        $('#buscar_recibo').click(function () {
+            event.preventDefault();
+            // Obtener el número de documento ingresado por el usuario
+            var numRecibo = $('#n_recibo-input').val();
+            
+if(numRecibo!=''){
+            // Realizar la solicitud al servidor para buscar el número de documento
+            $.post('/buscarRecibo', { num_recibo: numRecibo }, function (data) {
+                // Manejar la respuesta del servidor
+                if (data.success) {
+                    // Si se encuentra el número de documento, rellenar los campos de INFO PERSONAL
+                    var recibo_estado = data.data.recibo_estado;
+                    $('#estado_recibo').val(recibo_estado);
+                    var importe = data.data.importe;
+                    $('#importe_recibo').val(importe);
+                    var importe = data.data.importe;
+                    $('#importe_recibo_recaudacion').val(importe);
+
+                } else  {
+                    // Si no se encuentra el número de documento, mostrar un mensaje de error
+                  
+                    alert('Número de recibo no encontrado');
+                }
+            });
+        } else alert('Complete los campos')
+        });
+    });
+
+  
+    $(document).ready(function () {
+    // Manejar el clic del botón de agregar
+    $('#agregar-btn').click(function () {
+        // Obtener los valores del formulario
+
+        var numRecibo = $('#n_recibo-input').val();
+        var nOperacion = $('#n_operacion').val();
+        var fechaOperacion = $('#fecha-operacion-input').val();
+        var idRecaudacionEstado = $('#EstadoR-input').val();
+        var observacion = $('#observacion-input').val();
+
+        // Realizar la solicitud al servidor para agregar los datos
+        $.post('/agregar', {
+            num_recibo: numRecibo,
+            n_operacion: nOperacion,
+            fecha_operacion: fechaOperacion,
+            id_recaudacion_estado: idRecaudacionEstado,
+            observacion: observacion
+        }, function (data) {
+            // Manejar la respuesta del servidor
+            if (data.success) {
+                // Mostrar un mensaje de éxito y actualizar la tabla
+                alert(data.message);
+                location.reload(); // Recargar la página para reflejar los cambios en la tabla
+            } else {
+                // Mostrar un mensaje de error
+                alert('Error al agregar los datos');
+            }
+        });
+    });
+});
+
+</script>
+
+{% endblock %}

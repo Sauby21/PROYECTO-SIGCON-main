@@ -1,0 +1,177 @@
+<div class="subsection-0 text-2 color-b">
+    <p class="mp-0"><b>
+            Seleccione 'PREDIO' y 'PERIODO'
+        </b></p>
+</div>
+<div class="subsection-1">
+    <div class="columna-2">
+        <div class="cont-2">
+            <div class="flexy">
+                <div class="text-center-v">
+                    <p class="text-1 tab-1 mp-0"><b>
+                            Predio
+                        </b></p>
+                </div>
+                <div>
+                    <div class="envoltura" [ngClass]="{'active': isActivePredios, 'disabled': bloquearPredios}">
+                        <div class="select-btn" (click)="toggleActivePredios()">
+                            <span>{{selectedTextPredio}}</span>
+                            <i class="uil uil-angle-down"></i>
+                        </div>
+                        <div class="combobox-recuadro">
+                            <div class="buscar">
+                                <i class="uil uil-search"></i>
+                                <input type="text" placeholder="Buscar Predio" [(ngModel)]="searchPredios"
+                                    (keyup)="filterPredios()">
+                                <span class="buscador-cerrar" (click)="toggleActivePredios()">&times;</span>
+                            </div>
+                            <ul class="opciones">
+                                <li *ngFor="let predio of filteredPredios" (click)="selectedPredio(predio)"
+                                    [ngClass]="{'selected': predio.predio === selectedTextPredio}">
+                                    {{predio.predio}}
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="flexy">
+                <div class="text-center-v">
+                    <p class="text-1 tab-1 mp-0"><b>
+                            Periodo cuota
+                        </b></p>
+                </div>
+                <div>
+                    <div class="envoltura1" [ngClass]="{'active': isActivePeriodo, 'disabled': bloquearPeriodos}">
+                        <div class="combobox-cuerpo1" (click)="toggleActivePeriodos()">
+                            <span>{{selectedTextPeriodo}}</span>
+                            <i class="uil uil-angle-down"></i>
+                        </div>
+                        <div class="combobox-recuadro1">
+                            <div class="buscar">
+                                <i class="uil uil-search"></i>
+                                <input type="text" placeholder="Periodo de la cuota" [(ngModel)]="searchPeriodos"
+                                    (keyup)="filterPeriodos()">
+                                <span class="buscador-cerrar" (click)="toggleActivePeriodos()">&times;</span>
+                            </div>
+                            <ul class="opciones1">
+                                <li *ngFor="let periodos of filteredPeriodos" (click)="selectedPeriodo(periodos)"
+                                    [ngClass]="{'selected': periodos.periodo === selectedTextPeriodo}">
+                                    {{periodos.periodo}}
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="flexy">
+                <div class="text-center-v" style="height: 50px;">
+                    <p class="text-1 tab-1 mp-0"><b>
+                            Responsable predio
+                        </b></p>
+                </div>
+                <div class="text-center-v" style="height: 50px; width: 65%;">
+                    <p style="margin: 0 0 0 10px;">
+                        {{nomPresidente}}
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="cont-2" style="text-align: right;">
+            <div class="flexy">
+                <div style="width: 320px;"></div>
+                <div style="display: flex; height: 36px; margin-top: 10px;align-items: center;">
+                    <p class="text-1 mp-0"><b>
+                            Acciones
+                        </b></p>
+                </div>
+            </div>
+            <div class="flexy">
+                <div style="width: 300px;"></div>
+                <div class="tab-1" style="display: flex; height: 60px; align-items: center;">
+                    <div class="col d-flex justify-content-center">
+                        <button type="submit" class="btn btn-primary" (click)="cambiarMostrarRegistroPredio(true)"
+                            style="width: 250px; height: 40px;" [disabled]="bloquearRegistrarPredio">Registrar gastos
+                            del
+                            predio</button>
+                    </div>
+                    <div class="circulo-registro-predio" [ngStyle]="{
+                      'background-color': estadoRegistroPredioSelected === 'finalizado' ? 'green' : 'red',
+                      'box-shadow': estadoRegistroPredioSelected === 'finalizado' ? '0 0 5px 2px rgba(0, 255, 0, 0.8)' : '0 0 5px 2px rgba(255, 0, 0, 0.8)'
+                    }"></div>
+                </div>
+            </div>
+            <div class="flexy">
+                <div style="width: 300px;"></div>
+                <div class="tab-1" style="display: flex; height: 60px; align-items: center;">
+                    <div class="col d-flex justify-content-center">
+                        <button type="submit" class="btn btn-primary" (click)="cambiarMostrarRegistroCasa(true)"
+                            style="width: 250px; height: 40px;" [disabled]="bloquearRegistrarCasas">
+                            Registrar gastos de casa</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="subsection-0 text-2 color-b">
+    <p class="mp-0"><b>
+            Resumen
+        </b></p>
+</div>
+<div class="subsection-1">
+    <div style="display: flex; align-items: center; justify-content: center;">
+        <div class="contenedor-tabla" style="margin: 20px;">
+            <div class="tabla-principal" style="margin: 0; padding: 0;">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>indice</th>
+                            <th>Número de casa</th>
+                            <th>MDU</th>
+                            <th>Piso</th>
+                            <th>Estado</th>
+                            <th>Responsable</th>
+                            <th>Área casa (m2)</th>
+                            <th>Área cochera (m2)</th>
+                            <th>Área total (m2)</th>
+                            <th>Participación (%)</th>
+                            <th>Estado</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let casa of casasArray">
+                            <td>{{ casa.id_indice }}</td>
+                            <td>{{ casa.numero }}</td>
+                            <td>{{ casa.mdu }}</td>
+                            <td>{{ casa.piso }}</td>
+                            <td>{{ casa.estado }}</td>
+                            <td>{{ casa.responsable }}</td>
+                            <td>{{ casa.area_casa }}</td>
+                            <td>{{ casa.area_cochera }}</td>
+                            <td>{{ casa.area_total }}</td>
+                            <td>{{ casa.participacion }}</td>
+                            <td>
+                                <div class="circulo-registro-casa" [ngStyle]="{
+                'background-color': verificarFinalizadoCasas(casa.numero) === true ? finalizadoColor : no_finalizadoColor,
+                'box-shadow': verificarFinalizadoCasas(casa.numero) === true ? finalizadoSombra : no_finalizadoSombra
+              }"></div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="mostrarComp_RegistGastPredios">
+    <app-registrar-gasto-predio (mostrarRegistroPredio_OUT)="cambiarMostrarRegistroPredio($event)"
+        (llamarFinalizarPredio_OUT)="finalizarRegistroPredio()" [id_predio_IN]="id_selectedPredio"
+        [id_periodo_IN]="id_selectedPeriodo" [predio_IN]="selectedTextPredio"
+        [periodo_IN]="selectedTextPeriodo"></app-registrar-gasto-predio>
+</div>
+<div *ngIf="mostrarComp_RegistGastCasa">
+    <app-registrar-gasto-casa (mostrarRegistroCasa_OUT)="cambiarMostrarRegistroCasa($event)"
+        (idCasaRegistro_OUT)="finalizarRegistroCasa($event)" [casasArray_IN]="casasArray"></app-registrar-gasto-casa>
+</div>

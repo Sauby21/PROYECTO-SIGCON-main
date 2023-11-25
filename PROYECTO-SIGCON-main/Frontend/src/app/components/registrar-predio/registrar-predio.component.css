@@ -1,0 +1,14 @@
+.form-group label {
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.form-control {
+    font-size: 16px;
+}
+
+.custom-style {
+    color: black;
+    font-size: 20px;
+    font-weight: bold;
+}

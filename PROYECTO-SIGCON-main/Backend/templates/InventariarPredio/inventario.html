@@ -1,0 +1,66 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+  Inventario de Predios
+{% endblock %}
+
+{% block body %}
+
+<div class="row text-black">
+  <h1>Inventario de los predios</h1>
+  <p class="h4">En esta sección se pueden apreciar los datos de los predios registrados</p>
+
+  <div class="col-md-12 container my-3">
+    <form method="post" action="{{ url_for('contacts.filter_predios') }}">
+      <div class="form-group">
+          <label for="tipoPredioSelect">Tipo de Predio:</label>
+          <select class="form-control" id="tipoPredioSelect" name="tipo_predio">
+            <option value="">Seleccione un tipo de predio</option>
+            <option value="Condominio" {% if tipo_predio == 'Condominio' %}selected{% endif %}>Condominio</option>
+            <option value="Residencial" {% if tipo_predio == 'Residencial' %}selected{% endif %}>Residencial</option>
+            <option value="Quinta" {% if tipo_predio == 'Quinta' %}selected{% endif %}>Quinta</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="descripcionPredioInput">Nombre del Predio:</label>
+          <input type="text" class="form-control" id="descripcionPredioInput" name="descripcion_predio" placeholder="Ingrese la descripción del predio">
+        </div>
+        <div class="form-group">
+          <label for="rucPredioInput">RUC del Predio:</label>
+          <input type="text" class="form-control" id="rucPredioInput" name="ruc_predio" placeholder="Ingrese el ruc del predio">
+        </div>
+    <button type="submit" class="btn btn-primary my-3">Filtrar</button>
+    </form>
+
+    
+    <div class="card justify-content-start mb-3 my-3 bg-black text-white">
+      {% for contact in contacts %}
+      <div class="card-body row col-md-12">
+        <div class="d-flex justify-content-start">
+          <h4 class="col-md-9 card-title"> Predio #{{contact.id_predio}}</h4>
+        </div>
+        <div class="card ms-2 mb-3 bg-white text-dark">
+          <div class="card-body row col-md-12 ">
+            <p class="card-text col-md-3"><strong>Nombre: </strong>{{ contact.descripcion }}</p>
+            <p class="card-text col-md-3"><strong>Tipo de Predio: </strong>{{ contact.nomre_predio}}</p>
+            <p class="card-text col-md-3"><strong>Ruc: </strong>{{ contact.ruc }}</p>
+            <p class="card-text col-md-3"><strong>Área Común: </strong>{{ contact.area_comun_descripcion }}</p>
+            <p class="card-text col-md-3"><strong>Unidad de Viviendas Multiples: </strong>{{ contact.mdu_descripcion }}</p>
+            <p class="card-text col-md-3"><strong>Telefono: </strong>{{ contact.telefono }}</p>
+            <p class="card-text col-md-3"><strong>Correo: </strong>{{ contact.correo }}</p>
+            <p class="card-text col-md-3"><strong>Direccion: </strong>{{ contact.direccion }}</p>
+            <p class="card-text col-md-3"><strong>Ubigeo: </strong>{{ contact.idubigeo }}</p>
+            <p class="card-text col-md-3"><strong>Cantidad de casas: </strong>{{ cantidad_casas.get(contact.id_predio, 0) }}</p>
+          </div>
+        </div>
+        <a href="{{ url_for('contacts.mostrar_casas', id_predio=contact.id_predio) }}" class="btn btn-primary btn-sm container-fluid rounded-0 ms-3 col-md-1">Mostrar Casas</a>
+        <a href="{{ url_for('contacts.update_predio',id=contact.id_predio) }}" class="btn btn-secondary btn-sm rounded-0 ms-3 col-md-1">Editar</a>
+        <a href="{{ url_for('contacts.delete_predio',id=contact.id_predio) }}" class="btn btn-danger btn-sm rounded-0 ms-3 col-md-1">Eliminar</a>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+{% endblock %}
+</div>

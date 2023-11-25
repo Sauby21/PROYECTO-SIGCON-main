@@ -1,0 +1,64 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+    Mostrar Casas
+{% endblock %}
+
+{% block body %}
+
+<div class="row text-black">
+    <h1>Casas del Predio</h1>
+    <p>En esta sección se pueden ver las casas del predio seleccionado:</p>
+
+    {% set a = 1 %}
+    {% set b = 2 %}
+    {% set c = 3 %}
+    <form method="GET">
+        <select name="val">
+            <option value="">Seleccione una Unidad de Vivienda Múltiple</option>
+            <option value="{{a}}">Edificio</option>
+            <option value="{{b}}">Torre</option>
+            <option value="{{c}}">Bloque</option>
+        </select>
+        <button type="submit" class="btn btn-primary my-3">Filtrar</button>
+    </form>    
+
+    <div class="col-md-6 container py-5">
+        {% for casa in casas_predio|sort(attribute='id_casa') %}
+            {% set predio_mdu = predios_mdu|selectattr('id_predio_mdu', 'equalto', casa.id_predio_mdu)|first %}
+            {% set mdu = mdus|selectattr('id_mdu', 'equalto', predio_mdu.id_mdu)|first %}
+            {% if mdu.id_mdu|int == val|int %}
+                <div class="card justify-content-start mb-1 bg-black text-white">
+                    <div class="card-body py-2">
+                        <h5 class="card-title h6">Casa #{{ casa.id_casa }}</h5>
+                        <p class="card-text">Número: {{ casa.numero }}</p>
+                        <p class="card-text">Piso: {{ casa.piso }}</p>
+                        <p class="card-text">Área: {{ casa.area }}</p>
+                        <p class="card-text">Participación: {{ casa.participacion }}</p>
+                        <p class="card-text">Unidad de Vivienda Múltiple: {{ mdu.descripcion }}</p>
+                        <a href="{{ url_for('contacts.delete_casa', id=casa.id_casa) }}" class="btn btn-danger">Eliminar</a>
+                    <a href="{{ url_for('contacts.update_casa', id=casa.id_casa) }}" class="btn btn-primary">Editar</a>
+                    </div>
+                </div>
+
+            {% elif val == "" %}
+            <div class="card justify-content-start mb-1 bg-black text-white">
+                <div class="card-body py-2">
+                    <h5 class="card-title h6">Casa #{{ casa.id_casa }}</h5>
+                    <p class="card-text">Número: {{ casa.numero }}</p>
+                    <p class="card-text">Piso: {{ casa.piso }}</p>
+                    <p class="card-text">Área: {{ casa.area }}</p>
+                    <p class="card-text">Participación: {{ casa.participacion }}</p>
+                    <p class="card-text">Unidad de Vivienda Múltiple: {{ mdu.descripcion }}</p>
+                    <a href="{{ url_for('contacts.delete_casa', id=casa.id_casa) }}" class="btn btn-danger">Eliminar</a>
+                <a href="{{ url_for('contacts.update_casa', id=casa.id_casa) }}" class="btn btn-primary">Editar</a>
+                </div>
+            </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+    
+    
+</div>
+
+{% endblock %}

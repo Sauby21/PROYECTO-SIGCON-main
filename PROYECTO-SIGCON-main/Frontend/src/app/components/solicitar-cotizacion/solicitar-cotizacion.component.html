@@ -1,0 +1,181 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+<div class="row mb-4"></div>
+<div class="row mb-4"></div>
+<div class="row mb-4"></div>
+<div class="text-center form-group mb-4">
+    <h1 style="font-size: xxx-large;">Solicitar cotización</h1>
+</div>
+<div class="card border-secondary bg-light mb-3">
+    <div class="card-header border-secondary mb-4">
+        <div class="form-group">
+            <h2>Ingrese los siguientes datos</h2>
+        </div>
+    </div>
+    <div class="card-body">
+        
+        
+        <div class="container">
+            <form [formGroup]="forma" (ngSubmit)="registrar()">
+                <div class="row mb-4">
+                    <div class="col-2 form-group">
+                        <label for="nombreSolicitante">Nombre completo:</label>
+                    </div>
+            
+                    <div class="col-3">
+                        <input type="text" class="form-control" id="nombreSolicitante" value="{{nombreSolicitante}} {{ap_paterno}} {{ap_materno}}" [disabled]="editarNombre" required>
+                    </div>
+            
+                    <div class="col-1">
+                        <button type="button" class="btn btn-secondary" (click)="eNombre()">Editar</button>
+                    </div>
+                </div>
+            
+                <div class="card border-secondary mb-4">
+                    <div class="card-body">
+                        <app-registrar-predio></app-registrar-predio>
+                    </div>
+                </div>
+            
+                <div class="row mb-4">
+                    <div class="col-2 form-group">
+                        <label for="areaPredio">Área predio (en m²):</label>
+                    </div>
+            
+                    <div class="col-3">
+                        <input type="text" class="form-control" id="areaPredio" formControlName="areaPredio" [class.is-invalid] = "areaPredioNoValido" required>
+                        <small *ngIf="areaPredioNoValido" class="text-danger">Digite un área válida</small>
+                    </div>
+            
+                    <div class="col-2"></div>
+            
+                    <div class="col-2 form-group">
+                        <label for="numeroCasas">Número de Casas - Habitación:</label>
+                    </div>
+            
+                    <div class="col-2">
+                        <input type="number" class="form-control" id="numeroCasas" min = "0" value="0" formControlName="numeroCasas" [class.is-invalid] = "numeroCasasNoValido" required>
+                        <small *ngIf="numeroCasasNoValido" class="text-danger">Digite un número válido</small>
+                    </div>
+                </div>
+            
+                <div class="card border-secondary mb-4">
+                    <div class="card-body">
+                        <div class="row mb-4">
+                            <div class="col-2 form-group">
+                                <label for="areasComunes">Áreas comunes:</label>
+                            </div>
+                    
+                            <div class="card bg-light col-6">
+                                <div class="card-body">
+                                    <div class="row g-3 mb-3">
+                                        <div  class="col-7 g-3 border-top border-bottom scrollareaAC" style="max-width: 500px; max-height: 250px; overflow-y: auto; overflow-x: hidden;" id="areasComunes">
+                                
+                                        </div>
+                                        <div class="col-1"></div>
+                                        <div class="col-2">
+                                            <div class="form-group mb-4 mt-4">
+                                                <button type="button" class="btn btn-success" (click)="agregarElementoAreaComun('0','',false)" [disabled]="dAreasComunes">Agregar</button>
+                                            </div>
+                                        </div>
+                                        <div class="col-2">
+                                            <div class="form-group mb-4 mt-4">
+                                                <button type="button" class="btn btn-danger" (click)="eliminarElementoAreaComun()" [disabled]="dAreasComunes">Quitar</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+            
+                            <div class="col-1"></div>
+        
+                            <div class="col-2 form-group">
+                                <label for="">Cantidad de áreas comunes:</label>
+                            </div>
+                    
+                            <div class="col-1">
+                                <input type="text" class="form-control" id="cantAreasComunes" min = "0" value="{{cantAreas}}" [disabled]="dAreasComunes" readonly>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        
+            
+                <div class="row mb-4">
+                    <div class="col-3">
+                        <div class="form-group mb-4">
+                            <label for="servicio">Seleccionar servicio:</label>
+                        </div>
+                        <select class="form-control form-select" id="servicio" (change)="seleccionarServicio()" formControlName="tipoServicio" [class.is-invalid] = "tipoServicioNoValido" required>
+                            <option *ngFor="let s of servicios" value="{{s.id_servicio}}">{{s.descripcion}}</option>
+                        </select>
+                        <small *ngIf="tipoServicioNoValido" class="text-danger">Seleccione un tipo de</small>
+                    </div>
+            
+                    <div class="col-1"></div>
+            
+                    <div class="col-8">
+                        <div class="card border-secondary bg-light">
+                            <div class="card-body">
+                                <div class="row mb-4">
+                                    <div class="col-3 form-group" *ngIf="idServicio == '1'">
+                                        <label for="">Administrador:</label>
+                                    </div>
+                
+                                    <div class="col-2" *ngIf="idServicio == '1'">
+                                        <input type="number" class="form-control" id="administracion" min = "0" value="{{cAdmin}}" [disabled]="dAdmin" required>
+                                    </div>
+                
+                                    <div class="col-1"></div>
+            
+                                    <div class="col-3 form-group" *ngIf="idServicio == '2' || idServicio == '1'">
+                                        <label for="limpieza">Limpiador(es):</label>
+                                    </div>
+                
+                                    <div class="col-2" *ngIf="idServicio == '2' || idServicio == '1'">
+                                        <input type="number" class="form-control" id="limpieza" min = "0" value="{{cLimpieza}}" required>
+                                    </div>
+                                </div>
+            
+                                <div class="row mb-4">
+                                    <div class="col-3 form-group" *ngIf="idServicio == '4' || idServicio == '1'">
+                                        <label for="seguridad">Seguridad(es):</label>
+                                    </div>
+            
+                                    <div class="col-2" *ngIf="idServicio == '4' || idServicio == '1'">
+                                        <input type="number" class="form-control" id="seguridad" min = "0" value="{{cSegur}}" required>
+                                    </div>
+            
+                                    <div class="col-1"></div>
+            
+                                    <div class="col-3 form-group" *ngIf="idServicio == '3' || idServicio == '1'">
+                                        <label for="jardineria">Jardinero(s):</label>
+                                    </div>
+            
+                                    <div class="col-2" *ngIf="idServicio == '3' || idServicio == '1'">
+                                        <input type="number" class="form-control" id="jardineria" min = "0" value="{{cJardineria}}" required>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            
+                <div class="row mb-4">
+                    <div class="col-md-6">
+                        <div class="text-center mb-4">
+                            <button type="submit" class="btn btn-lg btn-block btn-primary">Solicitar cotización</button>
+                        </div>
+                    </div>
+            
+                    <div class="col-md-6">
+                        <div class="text-center mb-4">
+                            <button class="btn btn-lg btn-block btn-danger" (click)="volver()">Volver</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        
+    </div>
+</div>

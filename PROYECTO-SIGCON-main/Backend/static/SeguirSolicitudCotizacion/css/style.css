@@ -1,0 +1,38 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans&display=swap');
+*{
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	font-family: 'Open Sans', sans-serif;
+}
+.fondo {
+	background: url(https://www.xtrafondos.com/descargar.php?id=3183&resolucion=3840x1633);
+	background-size: 100vw 100vh;
+	background-repeat: no-repeat;
+	width: 100%;
+	top: 0;
+	left: 0;
+	width: 100vw;
+	height: 100vh;
+	position: fixed;
+	z-index: -1;
+	filter: brightness(0.7); /* Ajusta el valor para cambiar el brillo */
+  }
+  .skewed {
+	border-top: 1px solid #fff;
+	height: 2px;
+	max-width: 95%;
+	padding: 0;
+	margin: 0 auto 0 auto;
+  }
+
+  footer {
+	color: white;
+	font-size: 15px;
+	height: 45px;
+	width: 100%;
+	text-align: center;
+	line-height: 45px; /* Ajusta la altura verticalmente */
+	
+  }
+  

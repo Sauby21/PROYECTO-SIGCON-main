@@ -1,0 +1,202 @@
+<!-- <nav class="navbar navbar-dark bg-dark">
+    <div class="d-flex">
+      <button class="navbar-toggler ms-3" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <a class="navbar-brand ms-3">CONDOSA</a>
+    </div>
+  </nav> -->
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <form (ngSubmit)="buscarRecibo()" #formRecibo="ngForm">
+                        <div class="container-fluid">
+                            <div class="col">
+                            <div class="d-flex justify-content-center align-items-center height 100vh">
+                                INFORMACIÓN DE RECIBO
+                            </div>
+                            <div class="mb-2">
+                                <label class="form-label">N° Recibo:</label>
+                                <input type="text" name="nrecibo" class="form-control" id="num_recibo" [(ngModel)]="Recibo.numRecibo" required #recibo_="ngModel">
+                                <!-- <div class="alert alert-danger mt-2" [hidden]="recibo_.valid || recibo_.pristine">
+                                    El N° Recibo es Obligatorio
+                                </div> -->
+                                <div class="d-flex justify-content-center mb-2">
+                                    <button type="submit" class="btn btn-primary mt-2 center-block" [disabled]="formRecibo.invalid">
+                                        Buscar
+                                    </button>
+                                </div>                
+                                <label class="form-label">Estado Recibo:</label>
+                                <input type="text" name="estado" value={{estado}} class="form-control" id="est_recibo" required readonly disabled>
+                                <label class="form-label">Importe:</label>
+                                <input type="number" name="importe" value={{importe}} class="form-control" id="import_recibo" required readonly disabled>                                   
+                            </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <form #formRecaudacion="ngForm" (ngSubmit)="RegistrarRecaudacion()">
+                        <div class="container-fluid">
+                            <div class="col">
+                                <div class="d-flex justify-content-center align-items-center height 100vh">
+                                    INFORMACIÓN DE RECAUDACION
+                                </div>
+                            <div class="mb-2">
+                                <label class="form-label">Nro. Operacion:</label>
+                                <input type="number" name="nro_operacion" class="form-control" id="nro_operacion" [(ngModel)]="n_operacion" required #operacion_="ngModel">
+                                <!-- <div class="alert alert-danger mt-2" [hidden]="operacion_.valid || operacion_.pristine">
+                                    El Nro. Operacion es Obligatorio
+                                </div>       -->
+                                <label class="form-label">Fecha:</label>
+                                <input type="date" name="num_recibo" class="form-control" id="num_recibo" [(ngModel)]="fecha_operacion" required #fecha_="ngModel">
+                                <!-- <div class="alert alert-danger mt-2" [hidden]="fecha_.valid || fecha_.pristine">
+                                    La Fecha es Obligatorio
+                                </div> -->
+                                <label class="form-label">Tipo de Moneda:</label>
+                                <input type="text" value={{desc_moneda}} class="form-control" id="nro_operacion" required readonly disabled>    
+                                <label class="form-label">Importe:</label>
+                                <input type="number" name="importeRec" value={{importeRec}} class="form-control" id="importeRec" [(ngModel)]="importeRec" required #importe_="ngModel">
+                                <!-- <div class="alert alert-danger mt-2" [hidden]="importe_.valid || importe_.pristine">
+                                    El Importe es Obligatorio
+                                </div>      -->
+                                <label class="form-label">Estado:</label>
+                                <select class="form-select" name="estado" aria-label="Default select example" [(ngModel)]="recaudacion_estado" required #estado_="ngModel">
+                                    <option >Validado</option>
+                                    <option >Rechazado</option>
+                                    <option >Anulado</option>
+                                    <option >Registrado</option>
+                                </select>
+                                <!-- <div class="alert alert-danger mt-2" [hidden]="estado_.valid || estado_.pristine">
+                                    El Estado es Obligatorio
+                                </div> -->
+                                <label class="form-label">Observacion:</label>
+                                <input type="text" name="observacion" class="form-control" id="observacion" [(ngModel)]="observacion">    
+                                <div class="d-flex justify-content-center mb-2">
+                                    <button type="submit" class="btn btn-primary mt-2" [disabled]="formRecaudacion.invalid">
+                                        Registrar
+                                    </button>
+                                </div>          
+                            </div>               
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="card">
+            <div class="card-header">
+                <div class="container-fluid">
+                  <form class="d-flex" role="search">
+                    <input class="form-control me-2" type="search" placeholder="Search" name="filterPost" aria-label="Search"[(ngModel)]="filterPost">
+                  </form>
+                </div>
+            </div>
+            <table class="table">
+                <thead>
+                  <tr>
+                    <th scope="col">N°</th>
+                    <th scope="col">Nro Recibo</th>
+                    <th scope="col">Nro Operacion</th>
+                    <th scope="col">Fecha</th>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Predio</th>
+                    <th scope="col">Moneda</th>
+                    <th scope="col">Importe</th>
+                    <th scope="col">Estado</th>
+                    <th scope="col">Observacion</th>
+                    <th scope="col">Opciones</th>
+    
+                  </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let recaudacion_ of recaudaciones | filter:filterPost | paginate: { itemsPerPage: 10, currentPage: page } ;let i=index ">                               
+                            <td>{{i+1}}</td>
+                            <td>{{recaudacion_.mant_recibo.n_recibo}}</td>
+                            <td>{{recaudacion_.n_operacion}}</td>
+                            <td>{{recaudacion_.fecha_operacion}}</td>
+                            <td>{{recaudacion_.cuenta.persona.nombre_completo}}</td>
+                            <td>{{recaudacion_.mant_recibo.casa.predio.descripcion}}</td>
+                            <td>{{recaudacion_.cuenta.tipo_moneda.descripcion}}</td>
+                            <td>{{recaudacion_.importe | number:'1.2-2'}}</td>
+                            <td>{{recaudacion_.recaudacion_estado.descripcion}}</td>
+                            <td>{{recaudacion_.observacion}}</td>
+                            <td>
+                                <!-- Button trigger modal -->
+                            <div class=" mt-1">
+                                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop" (click)="Registros(recaudacion_)">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-fill" viewBox="0 0 16 16">
+                                        <path d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708l-3-3zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207l6.5-6.5zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.499.499 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11l.178-.178z"/>
+                                    </svg>
+                                </button>
+                                    
+                                    <!-- Modal -->
+                                <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                        <h1 class="modal-title fs-5" id="staticBackdropLabel">Recaudacion</h1>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form (ngSubmit)="RegistrarRecaudacion()">
+                                                <div class="container-fluid">
+                                                    <div class="col">
+                                                    <div class="mb-2">
+                                                        <label class="form-label">Nro. Operacion:</label>
+                                                        <input type="text" name="nro_operacion" class="form-control" value={{registro_nro_operacion}} id="nro_operacion" [(ngModel)]="n_operacion" required readonly disabled>      
+                                                        <label class="form-label">Fecha:</label>
+                                                        <input type="date" name="num_recibo" value={{registro_fecha}} class="form-control" id="num_recibo" [(ngModel)]="registro_fecha">   
+                                                        <label class="form-label">Importe:</label>
+                                                        <input type="text" name="importeRec" value={{registro_importe}} class="form-control" id="importeRec" [(ngModel)]="importeRec" required readonly disabled>      
+                                                        <label class="form-label">Estado:</label>
+                                                        <select class="form-select" name="estado" value={{registro_estado}} aria-label="Default select example" [(ngModel)]="registro_estado">
+                                                            <option >Validado</option>
+                                                            <option >Rechazado</option>
+                                                            <option >Anulado</option>
+                                                            <option >Registrado</option>
+                                                        </select>
+                                                        <label class="form-label">Observacion:</label>
+                                                        <input type="text" name="observacion" value={{registro_observacion}} class="form-control" id="observacion" [(ngModel)]="registro_observacion">           
+                                                    </div>               
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                        <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                        <button type="button" class="btn btn-primary"  data-bs-dismiss="modal" (click)="editarRecaudacion(registro_id_recaudacion)"> Guardar </button>
+                                        </div>
+                                        </div>
+                                        </div>
+                                    </div>   
+                                </div>                  
+                                <div class=" mt-1">
+                                <button type="button" class="btn btn-danger" (click)="eliminarRecaudacion(recaudacion_.id_recaudacion)">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-archive-fill" viewBox="0 0 16 16">
+                                        <path d="M12.643 15C13.979 15 15 13.845 15 12.5V5H1v7.5C1 13.845 2.021 15 3.357 15h9.286zM5.5 7h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1 0-1zM.8 1a.8.8 0 0 0-.8.8V3a.8.8 0 0 0 .8.8h14.4A.8.8 0 0 0 16 3V1.8a.8.8 0 0 0-.8-.8H.8z"/>
+                                    </svg>
+                                </button>
+                                </div>
+                            </td>
+                        </tr>                    
+                </tbody>
+            </table>
+            <div class="d-flex justify-content-center">
+                <pagination-controls (pageChange)="page = $event" previousLabel="Anterior" nextLabel="Siguiente"></pagination-controls>
+            </div>
+            
+        </div>
+    
+    
+    </div>
+</div>
+

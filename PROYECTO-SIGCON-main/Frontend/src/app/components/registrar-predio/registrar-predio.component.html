@@ -1,0 +1,130 @@
+
+<div class="row mb-4">
+    <div class="col-1 form-group">
+        <label for="buscarPredio">Predio:</label>
+    </div>
+    <div class="col-4 left" id="auto-buscarPredio">
+        <ng-select class="" style="font-size: 16px;"  id="predio" [disabled]="buscar" [(ngModel)]="id_predio" (change)="seleccionarOpcion()">
+            <ng-option *ngFor="let resultado of autoCompletados" value="{{resultado.id_predio}}">{{resultado.descripcion}} - {{resultado.direccion}}</ng-option>
+        </ng-select>
+    </div>
+
+    <div class="col-2 left">
+        <button type="button" class="btn btn-block btn-primary" [disabled]="buscar" (click)="autoCompletar()" >
+            <i class="bi bi-search"> Buscar</i>
+        </button>
+    </div>
+    <div class="col-2 text-center">
+        <label for="reg">¿Tu predio no está registrado?</label>
+    </div>
+    <div class="col-3 text-center">
+        <button type="button" class="btn btn-block btn-primary" (click)="iniciarRegistro()" [disabled]="iRegistro">{{bRegistro}}</button>
+    </div>
+</div>
+
+
+<div class="card bg-light bg-info mb-3">
+    <div class="card-header custom-style">Información del predio</div>
+
+    <div class="card-body form-group">
+        <form [formGroup]="forma" (ngSubmit)="registrar()">
+            <div class="row">
+                <div class="col-2 mb-4">
+                    <label for="nombrePredio">Nombre del predio:</label>
+                </div>
+    
+                <div class="col-3 mb-4">
+                    <input type="text" class="form-control" id="nombrePredio" value="{{predio.descripcion}}" formControlName="nombrePredio" [class.is-invalid] = "nombrePredioNoValido" required>
+                    <small *ngIf="nombrePredioNoValido" class="text-danger">Este campo es obligatorio</small>
+                </div>
+    
+                <div class="col-1"></div>
+    
+                <div class="col-2 mb-4">
+                    <label for="numeroContacto">Número de contacto</label>
+                </div>
+    
+                <div class="col-3 mb-4">
+                    <input type="text" class="form-control" id="numeroContacto" value="{{predio.telefono}}" formControlName="numeroContacto" [class.is-invalid] = "numeroContactoNoValido" required>
+                    <small *ngIf="numeroContactoNoValido" class="text-danger">Digite un número de teléfono válido</small>
+                </div>
+            </div>
+    
+            <div class="row">
+                <div class="col-2 mb-4">
+                    <label for="ruc">RUC:</label>
+                </div>
+    
+                <div class="col-3 mb-4">
+                    <input type="text" class="form-control" id="ruc" value="{{predio.ruc}}" formControlName="ruc" [class.is-invalid] = "rucNoValido" required>
+                    <small *ngIf="rucNoValido" class="text-danger">Digite un número de RUC válido</small>
+                </div>
+    
+                <div class="col-1"></div>
+    
+                <div class="col-2 mb-4">
+                    <label for="correoElectronico">Correo electrónico:</label>
+                </div>
+    
+                <div class="col-3 mb-4">
+                    <input type="text" class="form-control" id="correoElectronico" value="{{predio.correo}}" formControlName="correo" [class.is-invalid] = "correoNoValido" required>
+                    <small *ngIf="correoNoValido" class="text-danger">Digite un correo válido</small>
+                </div>
+            </div>
+    
+            
+            <div class="row">
+                <div class="col-2 mb-4">
+                    <label for="tipoPredio">Tipo</label>
+                </div>
+    
+                <div class="col-3 mb-4">
+                    <select class="form-control form-select" id="tipoPredio" value="{{predio.id_tipo_predio}}" formControlName="tipoPredio" [class.is-invalid] = "tipoPredioNoValido" required>
+                        <option *ngFor="let tp of tiposPredio" value="{{tp.id_tipo_predio}}">{{tp.nomre_predio}}</option>
+                    </select>
+                    <small *ngIf="tipoPredioNoValido" class="text-danger">Seleccione un tipo de predio</small>
+                </div>
+    
+                <div class="col-1"></div>
+    
+                <div class="col-2 mb-4">
+                    <label for="direccion">Dirección:</label>
+                </div>
+    
+                <div class="col-3 mb-4">
+                    <input type="text" class="form-control" id="direccion" value="{{predio.direccion}}" formControlName="direccion" [class.is-invalid] = "direccionNoValido" required>
+                    <small *ngIf="direccionNoValido" class="text-danger">Este campo es obligatorio</small>
+                </div>
+            </div>
+    
+    
+            <div class="row">
+                <div class="col-2 mb-4">
+                    <label for="codigoPostal">Código postal:</label>
+                </div>
+                <div class="col-3 mb-4">
+                    <select class="form-control form-select" id="codigoPostal" value="{{predio.idubigeo}}" [(ngModel)]="predio.idubigeo" formControlName="codigoPostal" [class.is-invalid]="codigoPostalNoValido" required>
+                        <option *ngFor="let c of ubigeo" value="{{c.idubigeo}}">{{c.idubigeo}} - {{c.departamento}} - {{c.provincia}} - {{c.distrito}}</option>
+                    </select>
+                    <small *ngIf="codigoPostalNoValido" class="text-danger">Seleccione un código postal</small>
+                </div>  
+            <!--              
+                <div class="col-3 mb-4">
+                    <ng-select class="form-control form-select" style="font-size: 16px;" id="codigoPostal" [(ngModel)]="predio.idubigeo" formControlName="codigoPostal" [class.is-invalid] = "codigoPostalNoValido">
+                        <ng-option *ngFor="let c of ubigeo" value="{{c.idubigeo}}">{{c.idubigeo}} - {{c.departamento}} - {{c.provincia}} - {{c.distrito}}</ng-option>
+                    </ng-select>
+                    <small *ngIf="codigoPostalNoValido" class="text-danger">Seleccione un código postal</small>
+                </div>
+            -->
+                <div class="col-1"></div>
+    
+                <div class="col-5 mb-4">
+                    <button type="submit" class="btn btn-block btn-success" [disabled]="lectura">
+                        <i class="bi bi-building-add"> Agregar predio</i>
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+

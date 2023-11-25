@@ -1,0 +1,153 @@
+
+<div class="row mb-4"></div>
+<div class="row mb-4"></div>
+<div class="row mb-4"></div>
+<div class="text-center form-group mb-4">
+    <h1 style="font-size: xxx-large;">Registrar Cliente</h1>
+</div>
+
+<div class="card border-secondary bg-white mb-3">
+    <div class="card-header border-secondary mb-4">
+        <div class="form-group">
+            <h2>Ingrese sus datos</h2>
+        </div>
+    </div>
+
+    <div class="card-body">
+
+        <div class="container">
+            <form [formGroup]="forma" (ngSubmit)="registrar()">
+
+                <div class="row mb-5">
+                    <div class="col-1"></div>
+                    <div class="col-3 form-group">
+                        <label for="">Tipo de documento:</label>
+                    </div>
+                    <div class="col-6">
+                        <select class="form-control form-select" id="tipoDocumento" formControlName="tipoDocumento" [class.is-invalid] = "tipoDocumentoNoValido" required>
+                            <option *ngFor="let td of tiposDocumento" value="{{td.id_tipo_documento}}">{{td.descripcion}}</option>
+                        </select>
+                        <small *ngIf="tipoDocumentoNoValido" class="text-danger">Seleccione un tipo de documento</small>
+                    </div>
+                </div>
+
+                <div class="row mb-5">
+                    <div class="col-1"></div>
+                    <div class="col-3 form-group">
+                        <label for="">N° de documento:</label>
+                    </div>
+                    <div class="col-6">
+                        <input type="text" class="form-control" name="" id="numDocumento" formControlName="numDocumento" [class.is-invalid] = "numDocumentoNoValido" required>
+                        <small *ngIf="numDocumentoNoValido" class="text-danger">Ingrese un número de documento válido</small>
+                    </div>
+                </div>
+
+                <div class="row mb-5">
+                    <div class="col-1"></div>
+                    <div class="col-3 form-group">
+                        <label for="">Nombres:</label>
+                    </div>
+                    <div class="col-6">
+                        <input type="text" class="form-control" name="" id="nombres" formControlName="nombres" [class.is-invalid] = "nombresNoValido" required>
+                        <small *ngIf="nombresNoValido" class="text-danger">Este campo es obligatorio</small>
+                    </div>
+                </div>
+
+                <div class="row mb-5">
+                    <div class="col-1"></div>
+                    <div class="col-3 form-group">
+                        <label for="">Apellido Paterno:</label>
+                    </div>
+                    <div class="col-6">
+                        <input type="text" class="form-control" name="" id="apellidoPaterno" formControlName="apellidoPaterno" [class.is-invalid] = "apellidoPaternoNoValido" required>
+                        <small *ngIf="apellidoPaternoNoValido" class="text-danger">Este campo es obligatorio</small>
+                    </div>
+                </div>
+
+                <div class="row mb-5">
+                    <div class="col-1"></div>
+                    <div class="col-3 form-group">
+                        <label for="">Apellido materno:</label>
+                    </div>
+                    <div class="col-6">
+                        <input type="text" class="form-control" name="" id="apellidoMaterno" formControlName="apellidoMaterno" [class.is-invalid] = "apellidoMaternoNoValido" required>
+                        <small *ngIf="apellidoMaternoNoValido" class="text-danger">Este campo es obligatorio</small>
+                    </div>
+                </div>
+
+                <div class="row mb-5">
+                    <div class="col-1"></div>
+                    <div class="col-3 form-group">
+                        <label for="">Fecha de nacimiento:</label>
+                    </div>
+                    <div class="col-6">
+                        <input type="date" class="form-control" name="" id="fechaNacimietno" formControlName="fechaNacimietno" [class.is-invalid] = "fechaNacimietnoNoValido" required>
+                        <small *ngIf="fechaNacimietnoNoValido" class="text-danger">Este campo es obligatorio</small>
+                    </div>
+                </div>
+
+                <div class="row mb-5">
+                    <div class="col-1"></div>
+                    <div class="col-3 form-group">
+                        <label for="">Código postal:</label>
+                    </div>
+                    <div class="col-6">
+                        <ng-select class="" style="font-size: 16px;" id="codigoPostal" formControlName="codigoPostal" [class.is-invalid] = "codigoPostalNoValido">
+                            <ng-option *ngFor="let c of ubigeo" value="{{c.idubigeo}}">{{c.idubigeo}} - {{c.departamento}} - {{c.provincia}} - {{c.distrito}}</ng-option>
+                        </ng-select>
+                        <small *ngIf="codigoPostalNoValido" class="text-danger">Seleccione un código postal</small>
+                    </div>
+                </div>
+
+                <div class="row mb-5">
+                    <div class="col-1"></div>
+                    <div class="col-3 form-group">
+                        <label for="">Dirección:</label>
+                    </div>
+                    <div class="col-6">
+                        <input type="text" class="form-control" name="" id="direccion" formControlName="direccion" [class.is-invalid] = "direccionNoValido" required>
+                        <small *ngIf="direccionNoValido" class="text-danger">Este campo es obligatorio</small>
+                    </div>
+                </div>
+
+                <div class="row mb-5">
+                    <div class="col-1"></div>
+                    <div class="col-3 form-group">
+                        <label for="">Correo:</label>
+                    </div>
+                    <div class="col-6">
+                        <input type="text" class="form-control" name="" id="correo" placeholder="email@example.com" formControlName="correo" [class.is-invalid] = "correoNoValido" required>
+                        <small *ngIf="correoNoValido" class="text-danger">Ingrese un correo válido</small>
+                    </div>
+                </div>
+
+                <div class="row mb-5">
+                    <div class="col-1"></div>
+                    <div class="col-3 form-group">
+                        <label for="">Teléfono:</label>
+                    </div>
+                    <div class="col-6">
+                        <input type="text" class="form-control" name="" id="telefono" formControlName="telefono" [class.is-invalid] = "telefonoNoValido" required>
+                        <small *ngIf="telefonoNoValido" class="text-danger">Ingrese un teléfono válido</small>
+                    </div>
+                </div>
+
+                <div class="row mb-1">
+                    <div class="col-md-6">
+                        <div class="text-center mb-4">
+                            <button class="btn btn-lg btn-block btn-danger" (click)="volver()">Atrás</button>
+                        </div>
+                    </div>
+            
+                    <div class="col-md-6">
+                        <div class="text-center mb-4">
+                            <button type="submit" class="btn btn-lg btn-block btn-primary">Confirmar</button>
+                        </div>
+                    </div>
+                    
+                </div>
+            </form>
+        </div>
+
+    </div>
+</div>

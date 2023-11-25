@@ -1,0 +1,21 @@
+<header class="jumbotron bg-cover text-white">
+<nav class="navbar navbar-expand-md bg-primary bg-opacity-50 navigation-clean navbar-light" style="padding:0px;">
+    <div class="container">
+      <a class="navbar-brand fs-2" href="#">CONDOSA</a>
+      <button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-1" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li *ngIf="!userLoginOn" class="nav-item">
+            <a class="nav-link active" href="#" routerLink="/iniciar-sesion">Iniciar Sesión</a>
+          </li>
+          <li *ngIf="userLoginOn" class="nav-item">
+            <a class="nav-link" routerLink="/inicio">Cerrar Sesión</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+</header>

@@ -1,0 +1,222 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+
+{% if contact_type == 'predio' %}
+<!-- predio -->
+      
+  
+<form action="{{ url_for('contacts.update_predio', id=contact.id_predio) }}" method="POST"class="card row mb-3 my-5 ms-3 me-3 py-3 text-light justify-content-end" style="background-color: #1C4C96;">
+        
+  <h1>Editar Predio</h1>
+
+  <div class="container">
+    <div class="row">
+      <div class="mb-3 py-7 col-sm-3">
+        <label for="id_predio">Escriba el ID del predio:</label>
+        <input
+          type="text"
+          name="id_predio"
+          value="{{ contact.id_predio }}"
+          class="form-control bg-white text-black rounded-0"
+        />
+      </div>
+
+      <div class="mb-3 py-7 col-sm-3">
+        <label for="id_predio">Escriba el ID del predio:</label>
+        <input
+        type="text"
+        name="id_predio"
+        value="{{ contact.id_predio }}"
+        class="form-control bg-white text-black rounded-0"
+      />
+      </div>
+
+      <div class="mb-3 py-7 col-sm-3">
+        <label for="id_tipo_predio">Escriba el ID del tipo de predio:</label>
+        <input
+        type="text"
+        name="id_tipo_predio"
+        value="{{ contact.id_tipo_predio }}"
+        class="form-control bg-white text-black rounded-0"
+        />
+      </div>
+
+      <div class="col-3 mb-3 py-7 form-group">
+          <label for="descripcion">Escriba la descripción del predio:</label>
+          <input
+            type="text"
+            name="descripcion"
+            value="{{ contact.descripcion }}"
+            class="form-control bg-white text-black rounded-0"
+          />
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="row">
+      <div class="mb-3 py-7 form-group col-md-3">
+          <label for="ruc">Escriba el RUC del predio:</label>
+          <input
+            type="text"
+            name="ruc"
+            value="{{ contact.ruc }}"
+            class="form-control bg-white text-black rounded-0"
+          />
+      </div>
+
+      <div class="mb-3 justify-content-start py-7 form-group col-md-3">
+          <label for="telefono">Escriba el teléfono del predio:</label>
+          <input
+            type="text"
+            name="telefono"
+            value="{{ contact.telefono }}"
+            class="form-control bg-white text-black rounded-0"
+          />
+      </div>
+      <div class="mb-3 justify-content-start py-7 form-group col-md-3">
+          <label for="correo">Escriba el correo del predio:</label>
+          <input
+            type="text"
+            name="correo"
+            value="{{ contact.correo }}"
+            class="form-control bg-white text-black rounded-0"
+          />
+      </div>
+
+      <div class="mb-3 justify-content-start py-7 form-group col-md-3">
+          <label for="direccion">Escriba la dirección del predio:</label>
+          <input
+            type="text"
+            name="direccion"
+            value="{{ contact.direccion }}"
+            class="form-control bg-white text-black rounded-0"
+          />
+      </div>
+
+      <div class="mb-3 justify-content-start py-7 form-group col-md-3">
+          <label for="idubigeo">Escriba el ID del ubigeo:</label>
+          <input
+            type="text"
+            name="idubigeo"
+            value="{{ contact.idubigeo }}"
+            class="form-control bg-white text-black rounded-0"
+          />
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="row justify-content-center ">
+      <div class="col-md-1">
+        <button class="btn btn-dark">Actualizar</button>
+      </div>
+    </div>
+  </div>  
+</form>
+
+  {% elif contact_type == 'casa' %}
+  <!-- casa -->
+
+<form action="{{ url_for('contacts.update_casa', id=contact.id_casa) }}" method="POST"class="card row mb-3 my-5 ms-3  py-3 text-light justify-content-end" style="background-color: #1C4C96;">
+  <h1>Editar Casa</h1>
+
+  <div class="container">
+    <div class="row">
+      <div class="mb-3 py-7 col-sm-3">
+        <label for="id_casa">Escriba el ID de la casa:</label>
+          <input
+          type="text"
+          name="id_casa"
+          value="{{ contact.id_casa }}"
+          class="form-control bg-white text-black rounded-0"
+          />
+      </div>
+
+      <div class="mb-3 py-7 col-sm-3">
+        <label for="id_predio">Escriba el ID del predio:</label>
+        <input
+          type="text"
+          name="id_predio"
+          value="{{ contact.id_predio }}"
+          class="form-control bg-white text-black rounded-0"
+        />
+      </div>
+
+      <div class="mb-3 py-7 col-sm-3">
+        <label for="id_estado">Escriba el ID del estado:</label>
+        <input
+          type="text"
+          name="id_estado"
+          value="{{ contact.id_estado }}"
+          class="form-control bg-white text-black rounded-0"
+        />
+      </div>
+
+      <div class="col-3 mb-3 py-7 form-group">
+        <label for="id_predio_mdu">Escriba el ID del predio MDU:</label>
+        <input
+          type="text"
+          name="id_predio_mdu"
+          value="{{ contact.id_predio_mdu }}"
+          class="form-control bg-white text-black rounded-0"
+        />
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-3 mb-3 py-7 form-group">
+        <label for="numero">Escriba el número de la casa:</label>
+        <input
+          type="text"
+          name="numero"
+          value="{{ contact.numero }}"
+          class="form-control bg-white text-black rounded-0"
+        />
+      </div>
+
+      <div class="col-3 mb-3 py-7 form-group">
+        <label for="piso">Escriba el piso de la casa:</label>
+        <input
+          type="text"
+          name="piso"
+          value="{{ contact.piso }}"
+          class="form-control bg-white text-black rounded-0"
+        />
+      </div>
+
+      <div class="col-3 mb-3 py-7 form-group">
+        <label for="area">Escriba el área de la casa:</label>
+        <input
+          type="text"
+          name="area"
+          value="{{ contact.area }}"
+          class="form-control bg-white text-black rounded-0"
+        />
+      </div>
+
+      <div class="col-3 mb-3 py-7 form-group">
+        <label for="participacion">Escriba la participación de la casa:</label>
+        <input
+          type="text"
+          name="participacion"
+          value="{{ contact.participacion }}"
+          class="form-control bg-white text-black rounded-0"
+        />
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="row justify-content-center ">
+      <div class="col-md-1">
+        <button class="btn btn-dark">Actualizar</button>
+      </div>
+    </div>
+  </div> 
+  {% endif %}
+  
+{% endblock %}

@@ -1,0 +1,167 @@
+<div class="subseccion-titulo">
+    <p class="mp-0">
+        <b>
+            Registrar gastos de casa
+        </b>
+    </p>
+</div>
+<div class="subseccion-1">
+    <div class="col">
+        <div class="row">
+            <div class="row" style="height: 60vh;">
+                <div class="col" style="width: 33.33%;">
+                    <div class="row" style="height: 5vh; display: flex; align-items: center;">
+                        <p class="textoPricipal tabulador-elementosIzq"><b>GASTOS COMUNES</b></p>
+                    </div>
+                    <div class="row" style="height: 5vh;">
+                        <p class="textoPricipal tabulador-elementosIzq">Gastos asignados al predio de las casas</p>
+                    </div>
+                    <div class="row" style="height: 45vh; display: flex; align-items: center;">
+                        <div class="contenedor-tabla">
+                            <div class="tabla-gastos">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Descripción</th>
+                                            <th>Monto</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let gasto of gatosRegistradosPredio">
+                                            <td>{{ gasto.TipoGasto}}</td>
+                                            <td>{{ gasto.Monto }}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" style="height: 5vh; ">
+                        <button type="submit" class="btn btn-primary tabulador-elementosIzq"
+                            style="width: 220px; height: 40px">
+                            Registrar gastos comunes
+                        </button>
+                    </div>
+                </div>
+                <div class="col" style="width: 33.33%;">
+                    <div class="row" style="height: 10vh; display: flex; align-items: center;">
+                        <p class="textoPricipal tabulador-elementosDerc"><b>GASTOS INDIVIDUALES</b></p>
+                    </div>
+                    <div class="row" style="height: 10vh;">
+                        <div class="col-2" style="width: 30%;">
+                            <select name="listacasas" class="form-select" style="width: 100%; height: 40px;"
+                                [(ngModel)]="num_casa_selected">
+                                <option>--N° Casa--</option>
+                                <option *ngFor="let casa of casasArray_IN">
+                                    {{casa.numero}}
+                                </option>
+                            </select>
+                        </div>
+                        <div class="col-5" style="width: 35%;">
+                            <p class="textoPricipal">Tipos de gasto</p>
+                        </div>
+                        <div class="col-5" style="width: 35%;">
+                            <select name="tipogasto_casas" class="form-select" style="width: 100%; height: 40px;">
+                                <option>--seleccione--</option>
+                                <option *ngFor="let gasto of listaTipoGastoCasas">
+                                    {{gasto}}
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row" style="height: 10vh;">
+                        <div class="col-2" style="width: 30%;">
+                        </div>
+                        <div class="col-5" style="width: 35%;">
+                            <p class="textoPricipal">Descripción</p>
+                        </div>
+                        <div class="col-5" style="width: 35%;">
+                            <select name="desc_casas" class="form-select" style="width: 100%; height: 40px;">
+                                <option>--seleccione--</option>
+                                <option *ngFor="let desc of listaDescripcionCasas">
+                                    {{desc}}
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row" style="height: 10vh;">
+                        <div class="col-2" style="width: 30%;">
+                        </div>
+                        <div class="col-5" style="width: 35%;">
+                            <p class="textoPricipal">Importe total</p>
+                        </div>
+                        <div class="col-5" style="width: 35%;">
+                            <input type="number" name="importe_casa" id="importe_casa" [(ngModel)]="montoSeleccionado"
+                                class="form-control" style="width: 100%; height: 40px;" />
+                        </div>
+                    </div>
+
+                    <div class="row" style="height: 5vh;">
+                        <div class="col-2" style="width: 30%;">
+                        </div>
+                        <div class="col-5" style="width: 35%;">
+                            <button type="submit" class="btn btn-primary" style="width: 160px; height: 40px"
+                                (click)="registrarGasto()">
+                                Obtener Importe
+                            </button>
+                        </div>
+                        <div class="col-5" style="width: 35%;">
+                        </div>
+                    </div>
+                </div>
+                <div class="col" style="width: 33.33%;">
+                    <div class="row" style="height: 5vh; display: flex; align-items: center;">
+                        <!-- Utilizamos un contenedor adicional para controlar la alineación del botón -->
+                        <div class="mp-0" style="text-align: right">
+                            <!--BOTON DE CERRAR -->
+                            <button type="button" class="btn btn-outline-danger"
+                                (click)="set_mostrarRegistroCasa(false)">
+                                <span class="bi bi-x">X</span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="row" style="height: 10vh; display: flex; align-items: center;">
+                        <p class="textoPricipal tabulador-elementosDerc">Gastos registrados de la casa</p>
+                    </div>
+                    <div class="row" style="height: 45vh; display: flex; align-items: center;">
+                        <div class="contenedor-tabla">
+                            <div class="tabla-gastos">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Descripción</th>
+                                            <th>Monto</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let gasto of gatosRegistradosCasa">
+                                            <td>{{ gasto.TipoGasto }}</td>
+                                            <td>
+                                                <span *ngIf="gasto.Monto !== montoEditable">{{ gasto.Monto }}</span>
+                                                <input *ngIf="gasto.Monto === montoEditable" type="number"
+                                                    [value]="montoEditable" #montoInput
+                                                    (input)="montoEditable = +montoInput.value" />
+                                            </td>
+                                            <td>
+                                                <button type="button" class="btn btn-primary"
+                                                    [disabled]="montoEditable !== null && montoSeleccionado !== null && montoEditable === montoSeleccionado"
+                                                    (click)="editarMonto(gasto)">
+                                                    {{ montoEditable === null ? 'Editar' : 'Guardar' }}
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" style="text-align: center;">
+                        <button type="submit" class="btn btn-primary mx-auto" style="width: 240px; height: 50px;"
+                            (click)="finalizarRegistroCasa()">
+                            Finalizar registro de casa
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>

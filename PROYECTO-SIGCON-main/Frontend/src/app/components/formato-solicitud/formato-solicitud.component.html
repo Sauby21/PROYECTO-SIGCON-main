@@ -1,0 +1,135 @@
+<div class="row mb-4"></div>
+<div class="row mb-4"></div>
+<div class="row mb-4"></div>
+<div class="mb-4 text-center form-group">
+    <h1>¡Solicitud realizada con éxito!</h1>
+</div>
+
+
+<div class="container">
+    <div class="card bg-light bg-info mb-4 border-secondary">
+        <div class="card-header border-secondary">
+            <div class="row form-group">
+                <h3>Formato de la solicitud</h3>
+            </div>
+        </div>
+        <div class="card-body form-group">
+            <div class="row mb-5">
+                <div class="col-3">
+                    <label for="">N° Solicitud:</label>
+                </div>
+                <div class="col-8">
+                    <input type="text" class="form-control" id="idSolicitud" value="{{nroSolicitud}}" readonly>
+                </div>
+            </div>
+
+            <div class="row mb-5">
+                <div class="col-3">
+                    <label for="">Nombre solicitante:</label>
+                </div>
+                <div class="col-8">
+                    <input type="text" class="form-control" id="nombreSolicitante" value="{{nombreSolicitante}}" readonly>
+                </div>
+            </div>
+
+            <div class="row mb-5">
+                <div class="col-3">
+                    <label for="">Fecha de solicitud:</label>
+                </div>
+                <div class="col-8">
+                    <input type="text" class="form-control" id="fechaSolicitud" value="{{fechaSolicitud}} " readonly>
+                </div>
+            </div>
+
+            <div class="row mb-5">
+                <div class="col-3">
+                    <label for="">Predio:</label>
+                </div>
+                <div class="col-8">
+                    <input type="text" class="form-control" id="predio" value="{{predio}}" readonly>
+                </div>
+            </div>
+
+            <div class="row mb-5">
+                <div class="col-3">
+                    <label for="">Área del predio:</label>
+                </div>
+                <div class="col-8">
+                    <input type="text" class="form-control" id="areaPredio" value="{{areaPredio}} m²" readonly>
+                </div>
+            </div>
+
+            <div class="row mb-5">
+                <div class="col-3">
+                    <label for="">Número de Casas - Habitación:</label>
+                </div>
+                <div class="col-8">
+                    <input type="text" class="form-control" id="numeroCasas" value="{{numeroCasas}}" readonly>
+                </div>
+            </div>
+
+            <div class="row mb-5">
+                <div class="col-3">
+                    <label for="">Áreas comunes:</label>
+                </div>
+                <div class="col-6">
+                    <input type="text" class="form-control" id="cantAreasComunes" value="{{areaAreasComunes}} m² total ({{cantAreasComunes}})" readonly>
+                </div>
+
+                <div class="col-2">
+                    <button class="btn btn-primary form-control" type="button" (click)="mostrarAreas()" style="font-size: 23px;">
+                        Detalle
+                    </button>
+                </div>
+            </div>
+
+            <div class="collapse {{mostrar}}" id="collapse">
+                <div class="card mb-5">
+                    <div class="card-header">
+                        <h4>Detalle de áreas comunes</h4>
+                    </div>
+                    <div class="card-body bg-white text-dark">
+                        <ul class="list-group list-group-flush lista-areas">
+                            <li *ngFor="let ac of areasComunes" class="list-group-item mb-4">
+                                <div class="row mb-4">
+                                    <div class="col-2">
+                                        <label for="">Tipo de área común:</label>
+                                    </div>
+                                    <div class="col-4">
+                                        <input type="text" class="form-control" value="{{ac.nombre}}" readonly>
+                                    </div>
+                              
+                                    <div class="col-2">
+                                        <label for="">Área en m²:</label>
+                                    </div>
+                                    <div class="col-4">
+                                        <input type="text" class="form-control" value="{{ac.area}}" readonly>
+                                    </div>
+                                  </div>
+                            </li>  
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row mb-5">
+                <div class="col-3">
+                    <label for="">Servicio solicitado:</label>
+                </div>
+                <div class="col-8">
+                    <input type="text" class="form-control" id="servicio" value="{{servicio}} ({{cantidad}})" readonly>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mb-4 form-group text-center">
+        <div class="col-6">
+            <button type="button" class="btn btn-danger" (click)="downloadPDF()" style="font-size: 23px;">Descargar PDF</button>
+        </div>
+        
+        <div class="col-6">
+            <button type="button" class="btn btn-primary" (click)="regresar()" style="font-size: 23px;">Regresar al menú principal</button>
+        </div>
+    </div>
+</div>

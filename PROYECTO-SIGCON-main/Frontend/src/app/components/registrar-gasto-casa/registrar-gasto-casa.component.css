@@ -1,0 +1,116 @@
+.seccion-registrarpredio-borde {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    min-height: 70vh;
+    /*ALTURA*/
+    background-color: var(--color-fondo);
+    border: 1px solid var(--blue-navy-clrclr);
+    border-radius: 5px;
+    width: 95%;
+}
+
+.boton-finalizar-ubicacion {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.tabulador-elementosIzq {
+    margin-left: 4rem;
+}
+
+.tabulador-elementosDerc {
+    margin-left: 4rem;
+}
+
+.subseccion-titulo {
+    align-items: start;
+    margin-top: 1rem;
+    padding: 0.5rem 1rem 0.5rem 1rem;
+    background: rgba(109, 109, 109, 0.638);
+    border-radius: 10px 10px 0px 0px;
+    width: 100%;
+    color: #fff;
+    font-size: 1.30rem;
+}
+
+.mp-0 {
+    margin: 0;
+    padding: 0;
+}
+
+.subseccion-1 {
+    align-items: start;
+    margin: 0.5rem 0rem 2rem 0rem;
+    background: rgba(255, 255, 255, 0.616);
+    border: 1px solid rgba(255, 255, 255, 0.504);
+    border-radius: 0px 0px 10px 10px;
+    width: 100%;
+    min-height: 10px;
+}
+
+.cont-2 {
+    width: 50%;
+}
+
+.columna-2 {
+    justify-content: start;
+    align-items: start;
+    display: flex;
+    padding: 0;
+    margin: 0;
+}
+
+.contenedor-tabla {
+    display: flex;
+    justify-content: center;
+    height: 300px;
+    /* Altura fija del contenedor */
+    width: 90%;
+    overflow-y: auto;
+    /* Barra de desplazamiento vertical */
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.tabla-gastos {
+    padding: 0px;
+    margin-top: 0px;
+}
+
+.tabla-gastos table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.tabla-gastos th {
+    padding: 8px;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+    border-right: 1px solid #ddd;
+    /* Agregar línea vertical */
+}
+
+.tabla-gastos td {
+    padding: 6px;
+    text-align: left;
+    background-color: #ffffff2d;
+    border-bottom: 1px solid #ddd;
+    border-right: 1px solid #ddd;
+    /* Agregar línea vertical */
+}
+
+.tabla-gastos th:last-child,
+.tabla-gastos td:last-child {
+    border-right: none;
+    /* Eliminar línea vertical en la última columna */
+}
+
+.tabla-gastos th {
+    background-color: #ffffff83;
+    font-weight: bold;
+}
+
+.tabla-gastos tbody tr:last-child td {
+    border-bottom: none;
+}

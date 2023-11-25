@@ -1,0 +1,177 @@
+<div class="subseccion-titulo">
+    <p class="mp-0"><b>
+            Registrar gastos del predio
+        </b></p>
+</div>
+<div class="subseccion-1">
+    <div style="margin: 1rem;">
+        <div class="columna-2">
+            <div class="cont-2">
+                <div class="text-center-v" style="height: 40;">
+                    <div class="textoPricipal mp-0">
+                        <p class="textoPricipal mp-0"><b>GASTOS PREDIO</b></p>
+                    </div>
+                </div>
+            </div>
+            <div class="cont-2 flexy" style="justify-content: right;">
+                <div class="mp-0" style="width: 36.48px; align-items: center;">
+                    <button type="button" class="btn btn-outline-danger" (click)="set_mostrarRegistroPredio(false)">
+                        <span class="bi bi-x">X</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="columna-2">
+            <div class="cont-2">
+                <div class="flexy">
+                    <div class="text-center-v">
+                        <div style="margin: 0; padding: 0;">
+                            <div class="tab-1 textoPricipal mp-0">
+                                <p class="textoPricipal mp-0">Predio</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="text-center-v">
+                        <p class="text-1 mp-0">
+                            {{ nombrePredio }}
+                        </p>
+                    </div>
+                </div>
+                <div class="flexy">
+                    <div class="text-center-v">
+                        <div style="margin: 0; padding: 0;">
+                            <div class="tab-1 textoPricipal mp-0">
+                                <p class="textoPricipal mp-0">Periodo</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="text-center-v">
+                        <p class="text-1 mp-0">
+                            {{ periodo }}
+                        </p>
+                    </div>
+                </div>
+                <div class="flexy">
+                    <div class="text-center-v">
+                        <div style="margin: 0; padding: 0;">
+                            <div class="tab-1 textoPricipal mp-0">
+                                <p class="textoPricipal mp-0">Tipo de gasto</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="envoltura" [ngClass]="{'active': isActiveTipoGasto}">
+                        <div class="select-btn" (click)="toggleActiveTipoGasto()">
+                            <span>{{selectedItemTipoGasto}}</span>
+                            <i class="uil uil-angle-down"></i>
+                        </div>
+                        <div class="combobox-recuadro">
+                            <ul class="opciones">
+                                <li *ngFor="let tipoGasto of tipoGastoArray" (click)="selectedTipoGasto(tipoGasto)"
+                                    [ngClass]="{'selected': tipoGasto.descripcion === selectedItemTipoGasto}">
+                                    {{tipoGasto.descripcion}}
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="flexy">
+                    <div class="text-center-v">
+                        <div style="margin: 0; padding: 0;">
+                            <div class="tab-1 textoPricipal mp-0">
+                                <p class="textoPricipal mp-0">Descripción</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="envoltura1" [ngClass]="{'active': isActiveDescripGasto}">
+                        <div class="select-btn1" (click)="toggleActiveDescripGasto()">
+                            <span>{{selectedItemDescripGasto}}</span>
+                            <i class="uil uil-angle-down"></i>
+                        </div>
+                        <div class="combobox-recuadro1">
+                            <ul class="opciones1">
+                                <li *ngFor="let descripGasto of descripGastoArray"
+                                    (click)="selectedDescripGasto(descripGasto)"
+                                    [ngClass]="{'selected': descripGasto.descripcion === selectedItemDescripGasto}">
+                                    {{descripGasto.descripcion}}
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="flexy">
+                    <div class="text-center-v">
+                        <div style="margin: 0; padding: 0;">
+                            <div class="tab-1 textoPricipal mp-0">
+                                <p class="textoPricipal mp-0">Monto total</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flexy" style="width: 400px; height: 60px; align-items: center;">
+                        <input type="number" name="monto_predio" id="monto_predio" placeholder="S/."
+                            class="form-control" style="width: 100%; height: 40px;" [(ngModel)]="montoTotal" min="0"
+                            max="9999">
+                    </div>
+                </div>
+                <div class="flexy" style="align-items: center; justify-content: center;">
+                    <div style="width: 100px; height: 40px;">
+                        <button type="button" class="btn btn-primary" style="width: 100px; height: 40px"
+                            (click)="registrarGastoPredio()">
+                            {{ botonUR }}
+                        </button>
+                    </div>
+                    <div style="width: 40px; height: 40px;"></div>
+                    <div style="width: 200px; height: 40px;">
+                        <button type="submit" class="btn btn-primary" style="width: 200px; height: 40px;">
+                            Asignar del mes anterior
+                        </button>
+                    </div>
+                    <div style="width: 230px; height: 40px;"></div>
+                    <br>
+                    <br>
+                    <br>
+                </div>
+
+            </div>
+            <div class="cont-2">
+                <div class="text-center-v">
+                    <p class="mp-0 text-1"><b>Gastos registrados del predio</b></p>
+                </div>
+                <div class="tab-3" style="margin-right: 4rem;">
+                    <div class="contenedor-tabla">
+                        <div class="tabla-gastos">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Descripción</th>
+                                        <th>Monto (S/.)</th>
+                                        <th>Editar</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let gasto of gastosRegistradosArray">
+                                        <td>{{ gasto.descripcion}}</td>
+                                        <td>{{ gasto.importe }}</td>
+                                        <td>
+                                            <button type="submit" class="btn btn-primary"
+                                                style="width: 70px; height: 35px;" (click)="editarGasto(gasto)">
+                                                Editar
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div style="margin: 1rem;">
+        <div class="flexy" style="align-items: center; justify-content: center; padding-top: 20px;">
+            <button type="submit" class="btn btn-primary" style="width: 200px; height: 40px;"
+                (click)="finalizarRegistroPredio()">
+                Finalizar registro
+            </button>
+        </div>
+    </div>
+</div>

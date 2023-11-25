@@ -1,0 +1,115 @@
+{% extends 'SeguirSolicitudCotizacion/base-user.html' %}
+{% block title %}Cotizaciones{% endblock %}
+
+{% block content %}
+
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<link rel="stylesheet" href="{{url_for('static',filename='SeguirSolicitudCotizacion/css/components/cotizaciones.css')}}">
+
+<div class="content-cuadro">
+    <div class="cuadro">
+        <!-- Titulo -->
+        <div>
+            <h1 class="titulo">Solicitudes</h1>
+        </div>
+
+        <!-- Pestañas -->
+
+        <div class="tabs">
+            <ul>
+                <li class="option option-active" id="pendientes-tab" onclick="mostrarTabla('pendientes')">
+                     Cotizaciones Pendientes
+                </li>
+                <li class="option" id="completadas-tab" onclick="mostrarTabla('completadas')" >
+                    Cotizaciones Completadas
+                </li>
+            </ul>
+        </div>
+
+        <!-- Tabla de Cotizaciones Pendientes -->
+        <div id="tabla-pendientes" class="tabla-cotizaciones">
+            <table class="table is-bordered is-hoverable is-dark has-text-white">
+                <thead>
+                    <tr>
+                        <th>ID Solicitud</th>
+                        <th>Predio</th>
+                        <th>Solicitante</th>
+                        <th>Servicio</th>
+                        <th>Cotizar</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for solicitudp in cotizaciones_pendientes %}
+                    <tr>
+                        <td>{{ formatear_id(solicitudp.id_solicitud) }}</td>
+                        <td>{{ solicitudp.predio.descripcion }}</td>
+                        <td>{{ solicitudp.solicitante.persona.nombre_completo }}</td>
+                        <td>{{ solicitudp.servicio.descripcion }}</td>
+                        <td>
+                            <a href="{{ url_for('solicitud_cotizacion.cotizar', id_solicitud=solicitudp.id_solicitud) }}" 
+                            class="button" data-toggle="tooltip" title="Cotizar">
+                                <img class="tabla-icon" src=" {{ url_for('static',filename='SeguirSolicitudCotizacion/img/moneda.png') }} ">
+                            </a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Tabla de Cotizaciones Completadas -->
+        <div id="tabla-completadas" class="tabla-cotizaciones" style="display: none;">
+            <table class="table is-bordered is-hoverable">
+                <thead>
+                    <tr>
+                        <th>ID Solicitud</th>
+                        <th>Personal</th>
+                        <th>Servicio</th>
+                        <th>Fecha</th>
+                        <th>Importe (S/)</th>
+                        <th>Estado</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for cotizacion in cotizaciones_completadas %}
+                    <tr>
+                        <td>{{ formatear_id(cotizacion.id_solicitud) }}</td>
+                        <td>{{ cotizacion.personal.persona.nombre_completo }}</td>
+                        <td>{{ cotizacion.solicitud.servicio.descripcion }}</td>
+                        <td>{{ cotizacion.fecha_cotizacion }}</td>
+                        <td>{{ cotizacion.importe }}</td>
+                        <td>{{ cotizacion.estado.descripcion}}</td>
+                        <td>
+                            <a href="{{ url_for('solicitud_cotizacion.cotizar', id_solicitud=cotizacion.id_solicitud, estado="
+                                Realizada") }}" class="button is-link is-small" data-toggle="tooltip"
+                                title="Ver Detalles">
+                                <img class="tabla-icon" src=" {{ url_for('static',filename='SeguirSolicitudCotizacion/img/ojo.png') }} ">
+                            </a>
+                            <form class="btn_download" action="{{ url_for('boleta.generar_pdf') }}" method="POST">
+                                <button type="submit" class="button is-link is-small" data-toggle="tooltip"
+                                    title="Descargar boleta">
+                                    <input type="hidden" name="descargar__id_solicitud"
+                                        value="{{ cotizacion.id_solicitud }}">
+                                    <span class="material-icons">
+                                        download
+                                    </span>
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+{% if bandera == "completadas" %}
+    <script src="{{ url_for('static', filename='SeguirSolicitudCotizacion/js/cotizacionesCompletadas-display.js') }}"></script>
+{% endif %}
+
+<script src="{{ url_for('static', filename='SeguirSolicitudCotizacion/js/cotizaciones.js') }}"></script>
+
+{% endblock %}
